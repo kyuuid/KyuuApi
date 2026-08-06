@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - KyuuApi</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        blood: { 50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5', 400: '#f87171', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c', 800: '#991b1b', 900: '#7f1d1d' },
+                        gold: { 50: '#fefce8', 100: '#fef9c3', 200: '#fef08a', 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207', 800: '#854d0e', 900: '#713f12' },
+                        dark: { bg: '#0a0a0f', surface: '#14141e', card: '#1a1a2e', border: 'rgba(220, 38, 38, 0.15)' }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ========================================
+           KYUUAPI - DARK BLOOD RED GLASSMORPHISM
+           + GOLD BLING / NEON GLOW
+           ======================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0f;
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background 0.5s ease;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #dc2626, #eab308);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ef4444, #facc15);
+        }
+
+        /* ===== GLASSMORPHISM ===== */
+        .glass {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(220, 38, 38, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-blood {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2);
+        }
+        .btn-blood:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.3);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #eab308, #a16207);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(234, 179, 8, 0.2);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(234, 179, 8, 0.3);
+        }
+
+        .btn-outline-blood {
+            background: transparent;
+            color: #dc2626;
+            border: 1.5px solid #dc2626;
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-blood:hover {
+            background: rgba(220, 38, 38, 0.1);
+            box-shadow: 0 0 30px rgba(220, 38, 38, 0.1);
+        }
+
+        /* ===== ROLE STYLES ===== */
+        .role-owner {
+            background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rgb-text 3s ease infinite;
+            font-weight: 900;
+        }
+        @keyframes rgb-text {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .role-breaker {
+            background: linear-gradient(45deg, #a855f7, #ec4899, #6366f1, #06b6d4, #a855f7);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: nebula-glow 3s ease infinite;
+            font-weight: 900;
+            filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
+        }
+        @keyframes nebula-glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .role-nolep {
+            background: linear-gradient(45deg, #ff0000, #1a0000, #8b0000, #000000, #ff0000);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: dark-blood 2s ease infinite;
+            font-weight: 900;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 10px rgba(139, 0, 0, 0.6));
+        }
+        @keyframes dark-blood {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== API KEY DISPLAY ===== */
+        .api-key-display {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(234, 179, 8, 0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-family: 'Courier New', monospace;
+            color: #eab308;
+            letter-spacing: 1px;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(220, 38, 38, 0.3);
+            border-radius: 10px;
+        }
+    </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+            <a href="home.html" class="text-xl font-black flex items-center gap-2">
+                <span class="text-blood-500">Kyuu</span>
+                <span class="text-gold-400">Api</span>
+                <span class="text-[10px] text-blood-400/50 font-mono ml-1">v1</span>
+            </a>
+            
+            <div class="flex items-center gap-2 sm:gap-4">
+                <a href="docs.html" class="text-sm text-gray-400 hover:text-gold-400 transition font-medium hidden sm:inline">Docs</a>
+                <a href="pricing.html" class="text-sm text-gray-400 hover:text-gold-400 transition font-medium hidden sm:inline">Pricing</a>
+                <a href="about.html" class="text-sm text-gray-400 hover:text-gold-400 transition font-medium hidden sm:inline">About</a>
+                
+                <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
+                
+                <a href="profile.html" class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition">
+                    <img id="nav-avatar" src="https://via.placeholder.com/32" class="w-8 h-8 rounded-full border border-blood-500/30 object-cover">
+                    <span id="nav-name" class="font-medium hidden sm:inline">Loading...</span>
+                </a>
+                
+                <button onclick="logout()" class="text-xs bg-blood-600/20 hover:bg-blood-600/40 text-blood-400 px-3 py-1.5 rounded-lg font-bold transition border border-blood-500/20">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        
+        <!-- WELCOME SECTION -->
+        <div class="glass rounded-2xl p-6 sm:p-8 mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blood-600/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl -ml-20 -mb-20"></div>
+            
+            <div class="relative z-10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <p class="text-sm text-gray-400 font-medium">Selamat datang,</p>
+                        <h1 id="welcome-name" class="text-2xl sm:text-3xl font-black text-white">User</h1>
+                        <div class="flex items-center gap-3 mt-1">
+                            <span id="welcome-role" class="text-xs font-bold text-blood-400 uppercase tracking-widest">Member</span>
+                            <span class="text-xs text-gray-500">•</span>
+                            <span id="welcome-plan" class="text-xs font-bold text-gold-400">Free Plan</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="docs.html" class="btn-gold text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-book"></i> Lihat Docs
+                        </a>
+                        <a href="profile.html" class="btn-outline-blood text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-user"></i> Profil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="glass rounded-2xl p-5 text-center border-l-4 border-blood-500">
+                <p class="text-gray-400 text-xs uppercase tracking-widest font-bold">Total Requests</p>
+                <p id="stat-requests" class="text-3xl font-black text-white mt-1">0</p>
+                <p class="text-[10px] text-gray-500 mt-1">Hari ini</p>
+            </div>
+            
+            <div class="glass rounded-2xl p-5 text-center border-l-4 border-gold-500">
+                <p class="text-gray-400 text-xs uppercase tracking-widest font-bold">Sisa Requests</p>
+                <p id="stat-remaining" class="text-3xl font-black text-gold-400 mt-1">0</p>
+                <p id="stat-limit" class="text-[10px] text-gray-500 mt-1">dari 100/hari</p>
+            </div>
+            
+            <div class="glass rounded-2xl p-5 text-center border-l-4 border-blue-500">
+                <p class="text-gray-400 text-xs uppercase tracking-widest font-bold">API Key</p>
+                <p id="stat-apikey" class="text-sm font-mono text-blue-400 mt-1 truncate">-</p>
+                <button onclick="copyApiKey()" class="text-[10px] text-gray-500 hover:text-white transition mt-1">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            
+            <div class="glass rounded-2xl p-5 text-center border-l-4 border-emerald-500">
+                <p class="text-gray-400 text-xs uppercase tracking-widest font-bold">Status</p>
+                <p id="stat-status" class="text-xl font-black text-emerald-400 mt-1">● Aktif</p>
+                <p class="text-[10px] text-gray-500 mt-1">Server Online</p>
+            </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="glass rounded-2xl p-6 lg:col-span-1">
+                <h3 class="text-sm font-black text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-gold-400"></i> Quick Actions
+                </h3>
+                
+                <div class="space-y-3">
+                    <a href="docs.html" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition group">
+                        <div class="w-10 h-10 rounded-xl bg-blood-500/20 flex items-center justify-center text-blood-400 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Dokumentasi</p>
+                            <p class="text-[10px] text-gray-400">Lihat semua endpoint API</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-500 ml-auto text-xs"></i>
+                    </a>
+                    
+                    <a href="profile.html" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition group">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/20 flex items-center justify-center text-gold-400 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Profil Saya</p>
+                            <p class="text-[10px] text-gray-400">Kelola akun & API key</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-500 ml-auto text-xs"></i>
+                    </a>
+                    
+                    <a href="pricing.html" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition group">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Upgrade Premium</p>
+                            <p class="text-[10px] text-gray-400">Dapatkan limit lebih besar</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-500 ml-auto text-xs"></i>
+                    </a>
+                    
+                    <a href="about.html" class="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition group">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Tentang KyuuApi</p>
+                            <p class="text-[10px] text-gray-400">Apa itu REST API?</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-500 ml-auto text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="glass rounded-2xl p-6 lg:col-span-2">
+                <h3 class="text-sm font-black text-white uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-blood-400"></i> Recent Activity
+                </h3>
+                
+                <div id="activity-list" class="space-y-3 max-h-72 overflow-y-auto pr-2 custom-scrollbar">
+                    <div class="text-center py-8 text-gray-500 text-sm">
+                        <i class="fa-solid fa-spinner fa-spin mr-2"></i> Memuat aktivitas...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENDPOINTS PREVIEW -->
+        <div class="mt-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
+                    <i class="fa-solid fa-server text-gold-400"></i> Popular Endpoints
+                </h3>
+                <a href="docs.html" class="text-xs text-gold-400 hover:text-gold-300 transition font-bold">Lihat semua →</a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="docs.html#endpoint-anime" class="glass rounded-xl p-4 hover:border-blood-500/30 transition border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[10px] font-black text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded">GET</span>
+                        <span class="text-sm font-mono text-gray-300">/anime</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">List anime terbaru</p>
+                </a>
+                
+                <a href="docs.html#endpoint-manga" class="glass rounded-xl p-4 hover:border-blood-500/30 transition border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[10px] font-black text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded">GET</span>
+                        <span class="text-sm font-mono text-gray-300">/manga</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">List manga populer</p>
+                </a>
+                
+                <a href="docs.html#endpoint-quote" class="glass rounded-xl p-4 hover:border-blood-500/30 transition border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[10px] font-black text-purple-400 bg-purple-400/10 px-2 py-0.5 rounded">GET</span>
+                        <span class="text-sm font-mono text-gray-300">/quote</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Quote anime random</p>
+                </a>
+                
+                <a href="docs.html#endpoint-waifu" class="glass rounded-xl p-4 hover:border-blood-500/30 transition border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[10px] font-black text-pink-400 bg-pink-400/10 px-2 py-0.5 rounded">GET</span>
+                        <span class="text-sm font-mono text-gray-300">/waifu</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Random waifu image</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ==============================
+        // DASHBOARD LOGIC
+        // ==============================
+
+        let currentUser = null;
+        let currentProfile = null;
+        let supabase = null;
+
+        // Inisialisasi Supabase
+        try {
+            if (typeof CONFIG !== 'undefined' && CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY) {
+                supabase = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+                console.log('✅ Supabase initialized');
+            } else {
+                console.error('❌ CONFIG not found');
+            }
+        } catch (err) {
+            console.error('❌ Supabase init error:', err);
+        }
+
+        async function loadDashboard() {
+            if (!supabase) {
+                alert('❌ Supabase tidak tersedia. Refresh halaman.');
+                return;
+            }
+
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (error || !session) {
+                window.location.href = 'auth.html';
+                return;
+            }
+            
+            currentUser = session.user;
+            
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', currentUser.id)
+                .single();
+            
+            if (profile) {
+                currentProfile = profile;
+                
+                document.getElementById('welcome-name').innerText = profile.full_name || 'User';
+                document.getElementById('nav-name').innerText = profile.full_name || 'User';
+                document.getElementById('nav-avatar').src = profile.avatar_url || 'https://via.placeholder.com/32';
+                
+                // Role
+                const roleEl = document.getElementById('welcome-role');
+                if (profile.role === 'owner') {
+                    roleEl.innerText = '👑 OWNER';
+                    roleEl.className = 'text-xs font-bold role-owner uppercase tracking-widest';
+                } else if (profile.role === 'breaker') {
+                    roleEl.innerText = '🔥 BREAKER';
+                    roleEl.className = 'text-xs font-bold role-breaker uppercase tracking-widest';
+                } else if (profile.role === 'nolep') {
+                    roleEl.innerText = '🩸 NOLEP';
+                    roleEl.className = 'text-xs font-bold role-nolep uppercase tracking-widest';
+                } else {
+                    roleEl.innerText = 'MEMBER';
+                    roleEl.className = 'text-xs font-bold text-blue-400 uppercase tracking-widest';
+                }
+                
+                // Plan
+                const plan = profile.plan || 'free';
+                document.getElementById('welcome-plan').innerText = plan === 'premium' ? '⭐ Premium Plan' : 'Free Plan';
+                document.getElementById('welcome-plan').className = 'text-xs font-bold ' + (plan === 'premium' ? 'text-gold-400' : 'text-gray-400');
+                
+                // API Key
+                const apiKey = profile.api_key || 'Belum dibuat';
+                document.getElementById('stat-apikey').innerText = apiKey;
+                
+                // Requests
+                const today = new Date().toDateString();
+                const requests = profile.requests_today || 0;
+                const limit = plan === 'premium' ? 10000 : 100;
+                const remaining = Math.max(0, limit - requests);
+                
+                document.getElementById('stat-requests').innerText = requests;
+                document.getElementById('stat-remaining').innerText = remaining;
+                document.getElementById('stat-limit').innerText = `dari ${limit}/hari`;
+                
+                // Status
+                document.getElementById('stat-status').innerHTML = '● Aktif';
+                document.getElementById('stat-status').className = 'text-xl font-black text-emerald-400 mt-1';
+            }
+            
+            loadActivity();
+        }
+
+        function loadActivity() {
+            const list = document.getElementById('activity-list');
+            
+            const activities = [
+                { time: '2 menit lalu', action: 'GET /anime', status: '200' },
+                { time: '15 menit lalu', action: 'GET /waifu', status: '200' },
+                { time: '1 jam lalu', action: 'GET /quote', status: '200' },
+                { time: '3 jam lalu', action: 'GET /manga', status: '404' },
+                { time: '5 jam lalu', action: 'GET /anime', status: '200' },
+            ];
+            
+            list.innerHTML = activities.map(a => `
+                <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 transition">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-gray-500">${a.time}</span>
+                        <span class="text-xs font-mono text-gray-300">${a.action}</span>
+                    </div>
+                    <span class="text-xs font-bold ${a.status === '200' ? 'text-emerald-400' : 'text-red-400'}">${a.status}</span>
+                </div>
+            `).join('');
+        }
+
+        function copyApiKey() {
+            const key = document.getElementById('stat-apikey').innerText;
+            if (key && key !== 'Belum dibuat') {
+                navigator.clipboard.writeText(key);
+                alert('✅ API Key berhasil disalin!');
+            } else {
+                alert('Belum ada API Key. Buat di halaman Profil.');
+            }
+        }
+
+        async function logout() {
+            if (supabase) {
+                await supabase.auth.signOut();
+            }
+            window.location.href = 'auth.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+</body>
+</html>

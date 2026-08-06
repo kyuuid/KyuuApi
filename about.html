@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang - KyuuApi</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        blood: { 50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5', 400: '#f87171', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c', 800: '#991b1b', 900: '#7f1d1d' },
+                        gold: { 50: '#fefce8', 100: '#fef9c3', 200: '#fef08a', 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207', 800: '#854d0e', 900: '#713f12' },
+                        dark: { bg: '#0a0a0f', surface: '#14141e', card: '#1a1a2e' }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+/* ========================================
+   KYUUAPI - DARK BLOOD RED GLASSMORPHISM
+   + GOLD BLING / NEON GLOW
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ===== ROOT VARIABLES ===== */
+:root {
+    /* Blood Red */
+    --blood-50: #fef2f2;
+    --blood-100: #fee2e2;
+    --blood-200: #fecaca;
+    --blood-300: #fca5a5;
+    --blood-400: #f87171;
+    --blood-500: #ef4444;
+    --blood-600: #dc2626;
+    --blood-700: #b91c1c;
+    --blood-800: #991b1b;
+    --blood-900: #7f1d1d;
+    
+    /* Gold */
+    --gold-50: #fefce8;
+    --gold-100: #fef9c3;
+    --gold-200: #fef08a;
+    --gold-300: #fde047;
+    --gold-400: #facc15;
+    --gold-500: #eab308;
+    --gold-600: #ca8a04;
+    --gold-700: #a16207;
+    --gold-800: #854d0e;
+    --gold-900: #713f12;
+    
+    /* Dark */
+    --dark-bg: #0a0a0f;
+    --dark-surface: #14141e;
+    --dark-card: #1a1a2e;
+    --dark-border: rgba(220, 38, 38, 0.15);
+    
+    /* Glass */
+    --glass-bg: rgba(26, 26, 46, 0.6);
+    --glass-border: rgba(220, 38, 38, 0.12);
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html.dark {
+    background-color: var(--dark-bg);
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: #f1f5f9;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background 0.5s ease;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--blood-600), var(--gold-500));
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--blood-500), var(--gold-400));
+}
+
+/* ===== GLASSMORPHISM ===== */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.glass-light {
+    background: rgba(26, 26, 46, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(220, 38, 38, 0.08);
+}
+
+.glass-nav {
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+}
+
+.glass-panel {
+    background: rgba(19, 27, 46, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== GLOW EFFECTS ===== */
+.blood-glow {
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.15), 0 0 60px rgba(220, 38, 38, 0.05);
+}
+.blood-glow-hover:hover {
+    box-shadow: 0 0 40px rgba(220, 38, 38, 0.25), 0 0 80px rgba(220, 38, 38, 0.08);
+}
+.gold-glow {
+    box-shadow: 0 0 30px rgba(234, 179, 8, 0.15), 0 0 60px rgba(234, 179, 8, 0.05);
+}
+.blood-pulse {
+    animation: bloodPulse 2s ease-in-out infinite;
+}
+@keyframes bloodPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.1); }
+    50% { box-shadow: 0 0 40px rgba(220, 38, 38, 0.3), 0 0 80px rgba(220, 38, 38, 0.1); }
+}
+
+/* ===== TEXT GRADIENTS ===== */
+.text-blood-gold {
+    background: linear-gradient(135deg, #dc2626, #eab308, #dc2626);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerBloodGold 3s ease-in-out infinite;
+}
+@keyframes shimmerBloodGold {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ===== NEON TEXT ===== */
+.neon-blood {
+    text-shadow: 0 0 10px rgba(220, 38, 38, 0.5), 0 0 20px rgba(220, 38, 38, 0.3), 0 0 40px rgba(220, 38, 38, 0.1);
+}
+.neon-gold {
+    text-shadow: 0 0 10px rgba(234, 179, 8, 0.4), 0 0 20px rgba(234, 179, 8, 0.2);
+}
+
+/* ===== ROLE STYLES (dari profile.html) ===== */
+.role-owner {
+    background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgb-text 3s ease infinite;
+    font-weight: 900;
+}
+@keyframes rgb-text {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.role-breaker {
+    background: linear-gradient(45deg, #a855f7, #ec4899, #6366f1, #06b6d4, #a855f7);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: nebula-glow 3s ease infinite;
+    font-weight: 900;
+    filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
+}
+@keyframes nebula-glow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.role-nolep {
+    background: linear-gradient(45deg, #ff0000, #1a0000, #8b0000, #000000, #ff0000);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: dark-blood 2s ease infinite;
+    font-weight: 900;
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 10px rgba(139, 0, 0, 0.6));
+}
+@keyframes dark-blood {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== AVATAR FRAMES (dari profile.html) ===== */
+.avatar-frame {
+    position: relative;
+    display: inline-block;
+    border-radius: 9999px;
+    padding: 4px;
+    transition: all 0.3s ease;
+}
+
+.frame-common {
+    background: linear-gradient(135deg, #9ca3af, #4b5563);
+    box-shadow: 0 0 10px rgba(156, 163, 175, 0.6);
+}
+.frame-rare {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4, #10b981);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
+    animation: rare-glow 2s infinite alternate;
+}
+@keyframes rare-glow {
+    0% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.6); }
+    100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.9); }
+}
+
+.frame-legendary {
+    background: linear-gradient(45deg, #f59e0b, #fef08a, #d97706, #fef08a);
+    background-size: 300% 300%;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.9), 0 0 10px rgba(254, 240, 138, 0.8);
+    animation: legendary-shine 2.5s infinite linear;
+}
+@keyframes legendary-shine {
+    0% { background-position: 0% 50%; box-shadow: 0 0 12px rgba(245, 158, 11, 0.8); }
+    50% { background-position: 100% 50%; box-shadow: 0 0 25px rgba(251, 191, 36, 1), 0 0 15px rgba(255, 255, 255, 0.8); }
+    100% { background-position: 0% 50%; box-shadow: 0 0 12px rgba(245, 158, 11, 0.8); }
+}
+
+.frame-mythic {
+    background: linear-gradient(270deg, #ec4899, #8b5cf6, #3b82f6, #06b6d4, #ef4444, #ec4899);
+    background-size: 400% 400%;
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.9), 0 0 15px rgba(139, 92, 246, 0.8);
+    animation: mythic-aura 3s infinite linear;
+}
+@keyframes mythic-aura {
+    0% { background-position: 0% 50%; filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.8)); }
+    50% { background-position: 100% 50%; filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.9)); }
+    100% { background-position: 0% 50%; filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.8)); }
+}
+
+.frame-mythic-red {
+    background: linear-gradient(270deg, #ff0000, #7f1d1d, #ff4500, #dc2626, #ff0000);
+    background-size: 400% 400%;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.9), 0 0 15px rgba(220, 38, 38, 0.8);
+    animation: mythic-blood-aura 2.5s infinite linear;
+}
+@keyframes mythic-blood-aura {
+    0% { background-position: 0% 50%; filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)); }
+    50% { background-position: 100% 50%; filter: drop-shadow(0 0 25px rgba(255, 69, 0, 1)); }
+    100% { background-position: 0% 50%; filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)); }
+}
+
+/* ===== BUTTONS ===== */
+.btn-blood {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2);
+}
+.btn-blood:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.3);
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, #eab308, #a16207);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(234, 179, 8, 0.2);
+}
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(234, 179, 8, 0.3);
+}
+
+.btn-outline-blood {
+    background: transparent;
+    color: #dc2626;
+    border: 1.5px solid #dc2626;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.btn-outline-blood:hover {
+    background: rgba(220, 38, 38, 0.1);
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.1);
+}
+
+.btn-outline-gold {
+    background: transparent;
+    color: #eab308;
+    border: 1.5px solid #eab308;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.btn-outline-gold:hover {
+    background: rgba(234, 179, 8, 0.1);
+    box-shadow: 0 0 30px rgba(234, 179, 8, 0.1);
+}
+
+/* ===== INPUTS ===== */
+.input-blood {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(220, 38, 38, 0.15);
+    color: #f1f5f9;
+    padding: 12px 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+.input-blood:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.1);
+}
+.input-blood::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== CARDS ===== */
+.card-blood {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+.card-blood:hover {
+    border-color: rgba(220, 38, 38, 0.3);
+    box-shadow: 0 8px 40px rgba(220, 38, 38, 0.08);
+}
+
+/* ===== API KEY DISPLAY ===== */
+.api-key-display {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(234, 179, 8, 0.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-family: 'Courier New', monospace;
+    color: #eab308;
+    letter-spacing: 1px;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+/* ===== EXP BAR RGB ===== */
+.rgb-exp-bar {
+    background: linear-gradient(90deg, #ff007f, #7928ca, #00dfd8, #0070f3, #10b981, #ff007f);
+    background-size: 300% 100%;
+    animation: rgb-flow 4s linear infinite;
+}
+@keyframes rgb-flow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* ===== CUSTOM SCROLLBAR UTILITY ===== */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(124, 58, 237, 0.4);
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 58, 237, 0.7);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+    .card-blood {
+        border-radius: 16px;
+    }
+    .btn-blood, .btn-gold, .btn-outline-blood, .btn-outline-gold {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+    .glass-panel {
+        border-radius: 20px;
+    }
+}
+    </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+            <a href="home.html" class="text-xl font-black flex items-center gap-2">
+                <span class="text-blood-500">Kyuu</span>
+                <span class="text-gold-400">Api</span>
+            </a>
+            <div class="flex items-center gap-3 sm:gap-4">
+                <a href="home.html" class="text-sm text-gray-400 hover:text-white transition font-medium">Home</a>
+                <a href="docs.html" class="text-sm text-gray-400 hover:text-gold-400 transition font-medium">Docs</a>
+                <a href="about.html" class="text-sm text-gold-400 font-bold border-b-2 border-gold-400/50 pb-0.5">About</a>
+                <a href="pricing.html" class="text-sm text-gray-400 hover:text-gold-400 transition font-medium">Pricing</a>
+                <button onclick="logout()" class="text-xs bg-blood-600/20 hover:bg-blood-600/40 text-blood-400 px-3 py-1.5 rounded-lg font-bold transition border border-blood-500/20">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div class="glass rounded-3xl p-6 sm:p-10">
+            <h1 class="text-3xl sm:text-4xl font-black text-white flex items-center gap-3 mb-6">
+                <i class="fa-solid fa-circle-info text-gold-400"></i>
+                Tentang KyuuApi
+            </h1>
+
+            <div class="prose prose-invert max-w-none">
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    <strong class="text-gold-400">KyuuApi</strong> adalah platform <strong class="text-blood-400">REST API</strong> 
+                    yang menyediakan berbagai data menarik seputar <strong class="text-gold-400">anime, manga, dan konten pop culture</strong> 
+                    dengan performa tinggi dan mudah digunakan.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+                    <div class="glass-light rounded-2xl p-5 border border-blood-500/10">
+                        <div class="text-3xl text-gold-400 mb-2">⚡</div>
+                        <h4 class="font-bold text-white">Cepat & Responsif</h4>
+                        <p class="text-sm text-gray-400">Endpoint dioptimalkan untuk response cepat</p>
+                    </div>
+                    <div class="glass-light rounded-2xl p-5 border border-blood-500/10">
+                        <div class="text-3xl text-blood-400 mb-2">🛡️</div>
+                        <h4 class="font-bold text-white">Aman</h4>
+                        <p class="text-sm text-gray-400">Autentikasi API Key untuk keamanan</p>
+                    </div>
+                    <div class="glass-light rounded-2xl p-5 border border-blood-500/10">
+                        <div class="text-3xl text-gold-400 mb-2">📦</div>
+                        <h4 class="font-bold text-white">Kaya Data</h4>
+                        <p class="text-sm text-gray-400">Puluhan endpoint dari berbagai kategori</p>
+                    </div>
+                    <div class="glass-light rounded-2xl p-5 border border-blood-500/10">
+                        <div class="text-3xl text-blood-400 mb-2">💎</div>
+                        <h4 class="font-bold text-white">Premium Plan</h4>
+                        <p class="text-sm text-gray-400">10.000 request/hari & custom API key</p>
+                    </div>
+                </div>
+
+                <h2 class="text-xl font-black text-gold-400 mt-8 mb-3">Apa itu REST API?</h2>
+                <p class="text-gray-300">
+                    <strong class="text-white">REST API</strong> (Representational State Transfer Application Programming Interface) 
+                    adalah standar arsitektur untuk membangun web service yang memungkinkan komunikasi antar aplikasi 
+                    melalui protokol HTTP. Dengan REST API, developer dapat mengakses data dan fungsionalitas dari 
+                    suatu platform secara terstruktur.
+                </p>
+
+                <h2 class="text-xl font-black text-gold-400 mt-8 mb-3">Mengapa KyuuApi?</h2>
+                <ul class="text-gray-300 space-y-2 list-disc pl-5">
+                    <li>✅ <strong class="text-white">Mudah digunakan</strong> — Dokumentasi lengkap & contoh kode</li>
+                    <li>✅ <strong class="text-white">Gratis untuk pemula</strong> — 100 request/hari dengan Free Plan</li>
+                    <li>✅ <strong class="text-white">Koleksi data unik</strong> — Anime, manga, quote, waifu, dan lainnya</li>
+                    <li>✅ <strong class="text-white">Support multi-bahasa</strong> — Contoh cURL, JS, Python, PHP</li>
+                    <li>✅ <strong class="text-white">Community driven</strong> — Terus berkembang dengan kontribusi</li>
+                </ul>
+
+                <div class="mt-8 flex flex-wrap gap-4">
+                    <a href="docs.html" class="btn-gold text-sm">
+                        <i class="fa-solid fa-book mr-2"></i> Lihat Dokumentasi
+                    </a>
+                    <a href="pricing.html" class="btn-outline-blood text-sm">
+                        <i class="fa-solid fa-crown mr-2"></i> Lihat Pricing
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        async function logout() {
+            if (typeof supabaseClient !== 'undefined') {
+                await supabaseClient.auth.signOut();
+            }
+            window.location.href = 'auth.html';
+        }
+    </script>
+</body>
+</html>
