@@ -33,44 +33,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
 
-/* ===== ROOT VARIABLES ===== */
 :root {
-    /* Blood Red */
-    --blood-50: #fef2f2;
-    --blood-100: #fee2e2;
-    --blood-200: #fecaca;
-    --blood-300: #fca5a5;
-    --blood-400: #f87171;
-    --blood-500: #ef4444;
-    --blood-600: #dc2626;
-    --blood-700: #b91c1c;
-    --blood-800: #991b1b;
-    --blood-900: #7f1d1d;
-    
-    /* Gold */
-    --gold-50: #fefce8;
-    --gold-100: #fef9c3;
-    --gold-200: #fef08a;
-    --gold-300: #fde047;
-    --gold-400: #facc15;
-    --gold-500: #eab308;
-    --gold-600: #ca8a04;
-    --gold-700: #a16207;
-    --gold-800: #854d0e;
-    --gold-900: #713f12;
-    
-    /* Dark */
     --dark-bg: #0a0a0f;
-    --dark-surface: #14141e;
-    --dark-card: #1a1a2e;
-    --dark-border: rgba(220, 38, 38, 0.15);
-    
-    /* Glass */
     --glass-bg: rgba(26, 26, 46, 0.6);
     --glass-border: rgba(220, 38, 38, 0.12);
 }
 
-/* ===== RESET & BASE ===== */
 * {
     margin: 0;
     padding: 0;
@@ -90,6 +58,52 @@ body {
     background-position: center;
     background-attachment: fixed;
     transition: background 0.5s ease;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ===== HIDE SCROLLBAR FOR MOBILE MENU ===== */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ===== BACKGROUND NEON BLOBS ===== */
+.bg-blob-1 {
+    position: absolute;
+    top: -5%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(220,38,38,0.1) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(50px);
+    z-index: -1;
+    animation: float 10s ease-in-out infinite alternate;
+}
+.bg-blob-2 {
+    position: absolute;
+    bottom: -5%;
+    right: -5%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(234,179,8,0.08) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(60px);
+    z-index: -1;
+    animation: float 8s ease-in-out infinite alternate-reverse;
+}
+
+/* Penyesuaian Blobs untuk HP Android */
+@media (max-width: 768px) {
+    .bg-blob-1 { width: 300px; height: 300px; }
+    .bg-blob-2 { width: 350px; height: 350px; }
+}
+
+@keyframes float {
+    0% { transform: translate(0px, 0px) scale(1); }
+    100% { transform: translate(30px, -40px) scale(1.1); }
 }
 
 /* ===== SCROLLBAR ===== */
@@ -101,11 +115,11 @@ body {
     background: rgba(0, 0, 0, 0.2);
 }
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--blood-600), var(--gold-500));
+    background: linear-gradient(180deg, #dc2626, #eab308);
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--blood-500), var(--gold-400));
+    background: linear-gradient(180deg, #ef4444, #facc15);
 }
 
 /* ===== GLASSMORPHISM ===== */
@@ -117,13 +131,6 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-.glass-light {
-    background: rgba(26, 26, 46, 0.4);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(220, 38, 38, 0.08);
-}
-
 .glass-nav {
     background: rgba(10, 10, 15, 0.85);
     backdrop-filter: blur(20px);
@@ -131,30 +138,54 @@ body {
     border-bottom: 1px solid rgba(220, 38, 38, 0.1);
 }
 
-.glass-panel {
-    background: rgba(19, 27, 46, 0.65);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+/* ===== PREMIUM CARDS EFFECTS ===== */
+.pricing-card {
+    background: rgba(20, 20, 30, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-/* ===== GLOW EFFECTS ===== */
-.blood-glow {
-    box-shadow: 0 0 30px rgba(220, 38, 38, 0.15), 0 0 60px rgba(220, 38, 38, 0.05);
+.pricing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(220, 38, 38, 0.1);
+    background: rgba(26, 26, 40, 0.8);
+    border-color: rgba(234, 179, 8, 0.3);
 }
-.blood-glow-hover:hover {
-    box-shadow: 0 0 40px rgba(220, 38, 38, 0.25), 0 0 80px rgba(220, 38, 38, 0.08);
+
+/* Kartu Khusus Populer (Bulanan) */
+.pricing-card-popular {
+    background: linear-gradient(180deg, rgba(26, 26, 40, 0.9) 0%, rgba(10, 10, 15, 0.9) 100%);
+    border: 2px solid rgba(234, 179, 8, 0.5);
+    box-shadow: 0 0 30px rgba(234, 179, 8, 0.15);
+    z-index: 10;
 }
-.gold-glow {
-    box-shadow: 0 0 30px rgba(234, 179, 8, 0.15), 0 0 60px rgba(234, 179, 8, 0.05);
+
+/* Scale hanya diterapkan di layar besar agar tidak meluber di HP */
+@media (min-width: 768px) {
+    .pricing-card-popular { transform: scale(1.03); }
+    .pricing-card-popular:hover { transform: translateY(-10px) scale(1.05); }
+    .pricing-card:hover { transform: translateY(-10px); }
 }
-.blood-pulse {
-    animation: bloodPulse 2s ease-in-out infinite;
-}
-@keyframes bloodPulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.1); }
-    50% { box-shadow: 0 0 40px rgba(220, 38, 38, 0.3), 0 0 80px rgba(220, 38, 38, 0.1); }
+
+.badge-popular {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #eab308, #ca8a04);
+    color: #0a0a0f;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 6px 16px;
+    border-bottom-left-radius: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: -4px 4px 15px rgba(234, 179, 8, 0.4);
 }
 
 /* ===== TEXT GRADIENTS ===== */
@@ -170,261 +201,54 @@ body {
     50% { background-position: 100% 50%; }
 }
 
-/* ===== NEON TEXT ===== */
-.neon-blood {
-    text-shadow: 0 0 10px rgba(220, 38, 38, 0.5), 0 0 20px rgba(220, 38, 38, 0.3), 0 0 40px rgba(220, 38, 38, 0.1);
-}
-.neon-gold {
-    text-shadow: 0 0 10px rgba(234, 179, 8, 0.4), 0 0 20px rgba(234, 179, 8, 0.2);
-}
-
-/* ===== ROLE STYLES (dari profile.html) ===== */
-.role-owner {
-    background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: rgb-text 3s ease infinite;
-    font-weight: 900;
-}
-@keyframes rgb-text {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.role-breaker {
-    background: linear-gradient(45deg, #a855f7, #ec4899, #6366f1, #06b6d4, #a855f7);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: nebula-glow 3s ease infinite;
-    font-weight: 900;
-    filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
-}
-@keyframes nebula-glow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.role-nolep {
-    background: linear-gradient(45deg, #ff0000, #1a0000, #8b0000, #000000, #ff0000);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: dark-blood 2s ease infinite;
-    font-weight: 900;
-    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 10px rgba(139, 0, 0, 0.6));
-}
-@keyframes dark-blood {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* ===== AVATAR FRAMES (dari profile.html) ===== */
-.avatar-frame {
-    position: relative;
-    display: inline-block;
-    border-radius: 9999px;
-    padding: 4px;
-    transition: all 0.3s ease;
-}
-
-.frame-common {
-    background: linear-gradient(135deg, #9ca3af, #4b5563);
-    box-shadow: 0 0 10px rgba(156, 163, 175, 0.6);
-}
-.frame-rare {
-    background: linear-gradient(135deg, #3b82f6, #06b6d4, #10b981);
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
-    animation: rare-glow 2s infinite alternate;
-}
-@keyframes rare-glow {
-    0% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.6); }
-    100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.9); }
-}
-
-.frame-legendary {
-    background: linear-gradient(45deg, #f59e0b, #fef08a, #d97706, #fef08a);
-    background-size: 300% 300%;
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.9), 0 0 10px rgba(254, 240, 138, 0.8);
-    animation: legendary-shine 2.5s infinite linear;
-}
-@keyframes legendary-shine {
-    0% { background-position: 0% 50%; box-shadow: 0 0 12px rgba(245, 158, 11, 0.8); }
-    50% { background-position: 100% 50%; box-shadow: 0 0 25px rgba(251, 191, 36, 1), 0 0 15px rgba(255, 255, 255, 0.8); }
-    100% { background-position: 0% 50%; box-shadow: 0 0 12px rgba(245, 158, 11, 0.8); }
-}
-
-.frame-mythic {
-    background: linear-gradient(270deg, #ec4899, #8b5cf6, #3b82f6, #06b6d4, #ef4444, #ec4899);
-    background-size: 400% 400%;
-    box-shadow: 0 0 25px rgba(236, 72, 153, 0.9), 0 0 15px rgba(139, 92, 246, 0.8);
-    animation: mythic-aura 3s infinite linear;
-}
-@keyframes mythic-aura {
-    0% { background-position: 0% 50%; filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.8)); }
-    50% { background-position: 100% 50%; filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.9)); }
-    100% { background-position: 0% 50%; filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.8)); }
-}
-
-.frame-mythic-red {
-    background: linear-gradient(270deg, #ff0000, #7f1d1d, #ff4500, #dc2626, #ff0000);
-    background-size: 400% 400%;
-    box-shadow: 0 0 25px rgba(255, 0, 0, 0.9), 0 0 15px rgba(220, 38, 38, 0.8);
-    animation: mythic-blood-aura 2.5s infinite linear;
-}
-@keyframes mythic-blood-aura {
-    0% { background-position: 0% 50%; filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)); }
-    50% { background-position: 100% 50%; filter: drop-shadow(0 0 25px rgba(255, 69, 0, 1)); }
-    100% { background-position: 0% 50%; filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)); }
-}
-
 /* ===== BUTTONS ===== */
-.btn-blood {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
+.btn-telegram {
+    background: linear-gradient(135deg, #0088cc, #005580);
     color: white;
     border: none;
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2);
+    padding: 12px 24px;
+    border-radius: 14px;
+    font-weight: 800;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 136, 204, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
 }
-.btn-blood:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.3);
-}
-
-.btn-gold {
-    background: linear-gradient(135deg, #eab308, #a16207);
-    color: white;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(234, 179, 8, 0.2);
-}
-.btn-gold:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(234, 179, 8, 0.3);
+.btn-telegram:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 136, 204, 0.5);
+    background: linear-gradient(135deg, #0099e6, #006699);
 }
 
 .btn-outline-blood {
-    background: transparent;
-    color: #dc2626;
+    background: rgba(220, 38, 38, 0.05);
+    color: #ef4444;
     border: 1.5px solid #dc2626;
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-}
-.btn-outline-blood:hover {
-    background: rgba(220, 38, 38, 0.1);
-    box-shadow: 0 0 30px rgba(220, 38, 38, 0.1);
-}
-
-.btn-outline-gold {
-    background: transparent;
-    color: #eab308;
-    border: 1.5px solid #eab308;
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-}
-.btn-outline-gold:hover {
-    background: rgba(234, 179, 8, 0.1);
-    box-shadow: 0 0 30px rgba(234, 179, 8, 0.1);
-}
-
-/* ===== INPUTS ===== */
-.input-blood {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(220, 38, 38, 0.15);
-    color: #f1f5f9;
-    padding: 12px 16px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
+    padding: 12px 24px;
+    border-radius: 14px;
+    font-weight: 800;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     width: 100%;
 }
-.input-blood:focus {
-    outline: none;
-    border-color: #dc2626;
-    box-shadow: 0 0 20px rgba(220, 38, 38, 0.1);
-}
-.input-blood::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+.btn-outline-blood:hover {
+    background: rgba(220, 38, 38, 0.15);
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.2);
+    transform: translateY(-3px);
 }
 
-/* ===== CARDS ===== */
-.card-blood {
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    transition: all 0.3s ease;
+/* Feature List Hover */
+.feat-item {
+    transition: transform 0.2s ease;
 }
-.card-blood:hover {
-    border-color: rgba(220, 38, 38, 0.3);
-    box-shadow: 0 8px 40px rgba(220, 38, 38, 0.08);
-}
-
-/* ===== API KEY DISPLAY ===== */
-.api-key-display {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(234, 179, 8, 0.2);
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-family: 'Courier New', monospace;
-    color: #eab308;
-    letter-spacing: 1px;
-    font-size: 14px;
-    word-break: break-all;
-}
-
-/* ===== EXP BAR RGB ===== */
-.rgb-exp-bar {
-    background: linear-gradient(90deg, #ff007f, #7928ca, #00dfd8, #0070f3, #10b981, #ff007f);
-    background-size: 300% 100%;
-    animation: rgb-flow 4s linear infinite;
-}
-@keyframes rgb-flow {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
-/* ===== CUSTOM SCROLLBAR UTILITY ===== */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 5px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(124, 58, 237, 0.4);
-    border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(124, 58, 237, 0.7);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 640px) {
-    .card-blood {
-        border-radius: 16px;
-    }
-    .btn-blood, .btn-gold, .btn-outline-blood, .btn-outline-gold {
-        padding: 8px 16px;
-        font-size: 13px;
-    }
-    .glass-panel {
-        border-radius: 20px;
-    }
+.pricing-card:hover .feat-item {
+    transform: translateX(5px);
 }
     </style>
     
@@ -433,19 +257,25 @@ body {
 </head>
 <body>
 
-    <!-- NAVBAR -->
+    <!-- Background Effects -->
+    <div class="bg-blob-1"></div>
+    <div class="bg-blob-2"></div>
+
+    <!-- NAVBAR (Optimasi Mobile) -->
     <nav class="glass-nav fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
-            <a href="home.html" class="text-xl font-black flex items-center gap-2">
-                <span class="text-blood-500">Kyuu</span>
-                <span class="text-gold-400">Api</span>
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center gap-4">
+            <a href="home.html" class="text-xl font-black flex items-center gap-1 group shrink-0">
+                <span class="text-blood-500 group-hover:text-blood-400 transition">Kyuu</span>
+                <span class="text-gold-400 group-hover:text-gold-300 transition">Api</span>
             </a>
-            <div class="flex items-center gap-3 sm:gap-4">
+            
+            <!-- Tambahan horizontal scroll (no-scrollbar) untuk layar sempit -->
+            <div class="flex items-center gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap no-scrollbar pb-1 pt-1 ml-auto">
                 <a href="home.html" class="text-sm text-gray-400 hover:text-white transition font-medium">Home</a>
                 <a href="docs.html" class="text-sm text-gray-400 hover:text-gold-400 transition font-medium">Docs</a>
                 <a href="about.html" class="text-sm text-gray-400 hover:text-gold-400 transition font-medium">About</a>
-                <a href="pricing.html" class="text-sm text-gold-400 font-bold border-b-2 border-gold-400/50 pb-0.5">Pricing</a>
-                <button onclick="logout()" class="text-xs bg-blood-600/20 hover:bg-blood-600/40 text-blood-400 px-3 py-1.5 rounded-lg font-bold transition border border-blood-500/20">
+                <a href="pricing.html" class="text-sm text-gold-400 font-bold border-b-2 border-gold-400 pb-0.5 shadow-gold">Pricing</a>
+                <button onclick="logout()" class="text-xs bg-blood-600/20 hover:bg-blood-600/40 text-blood-400 px-3 py-1.5 rounded-lg font-bold transition border border-blood-500/20 shrink-0">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </button>
             </div>
@@ -453,120 +283,186 @@ body {
     </nav>
 
     <!-- MAIN -->
-    <main class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <h1 class="text-3xl sm:text-4xl font-black text-white flex items-center justify-center gap-3">
-                <i class="fa-solid fa-crown text-gold-400"></i>
-                Pilih Plan
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        
+        <div class="text-center mb-12 sm:mb-16">
+            <span class="px-4 py-1.5 rounded-full bg-blood-500/10 border border-blood-500/30 text-blood-400 text-xs font-black uppercase tracking-widest mb-4 inline-block">
+                <i class="fa-solid fa-gem mr-2"></i>KyuuApi Premium
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-black text-white mt-2 mb-4 leading-tight">
+                Pilih Paket <span class="text-blood-gold">Terbaikmu</span>
             </h1>
-            <p class="text-gray-400 mt-2">Pilih paket yang sesuai dengan kebutuhanmu</p>
+            <p class="text-gray-400 text-sm sm:text-lg max-w-2xl mx-auto px-2">Tingkatkan limit dan dapatkan akses prioritas tanpa batasan. Proses pembelian cepat, aman, dan langsung diproses oleh Admin.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <!-- GRID 4 PAKET -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start lg:items-center">
             
-            <!-- FREE PLAN -->
-            <div class="glass rounded-3xl p-6 sm:p-8 border border-white/10 hover:border-blood-500/30 transition">
-                <div class="text-center">
-                    <span class="text-xs font-black text-gray-500 uppercase tracking-widest">Free</span>
-                    <h2 class="text-3xl font-black text-white mt-1">Rp 0</h2>
-                    <p class="text-sm text-gray-400">/ selamanya</p>
+            <!-- 1. FREE PLAN -->
+            <div class="pricing-card rounded-3xl p-6 sm:p-8">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-black text-gray-500 uppercase tracking-widest">Pemula</span>
+                    <h2 class="text-4xl font-black text-white mt-2">Rp 0</h2>
+                    <p class="text-sm text-gray-500 font-medium mt-1">/ selamanya</p>
                 </div>
                 
-                <ul class="mt-6 space-y-3">
-                    <li class="flex items-center gap-3 text-sm text-gray-300">
-                        <i class="fa-solid fa-check text-emerald-400"></i> 100 requests / hari
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-300">
+                        <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span><strong class="text-white">100 requests</strong> / hari</span>
                     </li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300">
-                        <i class="fa-solid fa-check text-emerald-400"></i> Dokumentasi lengkap
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-300">
+                        <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span>Akses dokumentasi standar</span>
                     </li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300">
-                        <i class="fa-solid fa-check text-emerald-400"></i> Support community
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-300">
+                        <i class="fa-solid fa-check text-emerald-400 mt-0.5"></i> <span>Support komunitas</span>
                     </li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300 opacity-50">
-                        <i class="fa-solid fa-xmark text-gray-500"></i> Custom API Key
+                    <li class="flex items-start gap-3 text-sm text-gray-500 opacity-60">
+                        <i class="fa-solid fa-xmark mt-0.5"></i> <span>Custom API Key</span>
                     </li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300 opacity-50">
-                        <i class="fa-solid fa-xmark text-gray-500"></i> Priority Support
+                    <li class="flex items-start gap-3 text-sm text-gray-500 opacity-60">
+                        <i class="fa-solid fa-xmark mt-0.5"></i> <span>Akses endpoint rahasia</span>
                     </li>
                 </ul>
                 
-                <div class="mt-6">
-                    <a href="auth.html" class="btn-outline-blood w-full text-center block text-sm">Mulai Gratis</a>
-                </div>
+                <a href="auth.html" class="btn-outline-blood">
+                    Daftar Gratis
+                </a>
             </div>
 
-            <!-- PREMIUM PLAN -->
-            <div class="glass rounded-3xl p-6 sm:p-8 border-2 border-gold-500/50 relative overflow-hidden blood-gold">
-                <div class="absolute top-0 right-0 bg-gold-500/10 px-4 py-1 rounded-bl-2xl text-xs font-bold text-gold-400">POPULER</div>
-                <div class="text-center">
-                    <span class="text-xs font-black text-gold-400 uppercase tracking-widest">Premium</span>
-                    <h2 class="text-3xl font-black text-gold-400 mt-1">Rp 50.000</h2>
-                    <p class="text-sm text-gray-400">/ bulan</p>
+            <!-- 2. PREMIUM MINGGUAN -->
+            <div class="pricing-card rounded-3xl p-6 sm:p-8 border-t border-blood-500/20">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-black text-blood-400 uppercase tracking-widest">Mingguan</span>
+                    <h2 class="text-4xl font-black text-white mt-2">Rp 5.5K</h2>
+                    <p class="text-sm text-gray-400 font-medium mt-1">/ 7 Hari</p>
                 </div>
                 
-                <ul class="mt-6 space-y-3">
-                    <li class="flex items-center gap-3 text-sm text-gray-300">
-                        <i class="fa-solid fa-check text-gold-400"></i> 10.000 requests / hari
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-200">
+                        <i class="fa-solid fa-check text-gold-400 mt-0.5"></i> <span><strong class="text-gold-400">10.000 requests</strong> / hari</span>
                     </li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300">
-                        <i class="fa-solid fa-check text-gold-400"></i> Custom API Key
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-200">
+                        <i class="fa-solid fa-check text-gold-400 mt-0.5"></i> <span>Custom API Key (Nama Bebas)</span>
                     </li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300">
-                        <i class="fa-solid fa-check text-gold-400"></i> Priority Support
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-200">
+                        <i class="fa-solid fa-check text-gold-400 mt-0.5"></i> <span>Akses ke <strong class="text-white">SEMUA</strong> endpoint</span>
                     </li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300">
-                        <i class="fa-solid fa-check text-gold-400"></i> Akses semua endpoint
-                    </li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300">
-                        <i class="fa-solid fa-check text-gold-400"></i> Tanpa limitasi
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-200">
+                        <i class="fa-solid fa-check text-gold-400 mt-0.5"></i> <span>Fast Response Support</span>
                     </li>
                 </ul>
                 
-                <div class="mt-6">
-                    <button onclick="upgradePremium()" class="btn-gold w-full text-center block text-sm">
-                        <i class="fa-solid fa-rocket mr-2"></i> Upgrade Sekarang
-                    </button>
+                <button onclick="orderViaTelegram('Premium 1 Minggu (Rp 5.500)')" class="btn-telegram">
+                    <i class="fa-brands fa-telegram text-lg"></i> Beli via Telegram
+                </button>
+            </div>
+
+            <!-- 3. PREMIUM BULANAN (POPULER) -->
+            <div class="pricing-card pricing-card-popular rounded-3xl p-6 sm:p-8">
+                <div class="badge-popular">Populer</div>
+                <div class="text-center mb-8 mt-2">
+                    <span class="text-xs font-black text-gold-400 uppercase tracking-widest shadow-gold-glow">Bulanan</span>
+                    <h2 class="text-5xl font-black text-gold-400 mt-2 tracking-tighter">Rp 30K</h2>
+                    <p class="text-sm text-gray-400 font-medium mt-2">/ 30 Hari</p>
                 </div>
+                
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="feat-item flex items-start gap-3 text-sm text-white font-medium">
+                        <span class="bg-gold-500/20 text-gold-400 rounded-full w-5 h-5 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-[10px]"></i></span>
+                        <span><strong class="text-gold-400">10.000 requests</strong> / hari</span>
+                    </li>
+                    <li class="feat-item flex items-start gap-3 text-sm text-white font-medium">
+                        <span class="bg-gold-500/20 text-gold-400 rounded-full w-5 h-5 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-[10px]"></i></span>
+                        <span>Custom API Key Eksklusif</span>
+                    </li>
+                    <li class="feat-item flex items-start gap-3 text-sm text-white font-medium">
+                        <span class="bg-gold-500/20 text-gold-400 rounded-full w-5 h-5 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-[10px]"></i></span>
+                        <span>Akses ke <strong class="text-gold-400">SEMUA</strong> endpoint premium</span>
+                    </li>
+                    <li class="feat-item flex items-start gap-3 text-sm text-white font-medium">
+                        <span class="bg-gold-500/20 text-gold-400 rounded-full w-5 h-5 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-[10px]"></i></span>
+                        <span><strong class="text-white">VIP Priority</strong> Support Langsung</span>
+                    </li>
+                    <li class="feat-item flex items-start gap-3 text-sm text-white font-medium">
+                        <span class="bg-gold-500/20 text-gold-400 rounded-full w-5 h-5 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-[10px]"></i></span>
+                        <span>Lebih Hemat <strong class="text-green-400">15%</strong></span>
+                    </li>
+                </ul>
+                
+                <button onclick="orderViaTelegram('Premium 1 Bulan (Rp 30.000)')" class="btn-telegram bg-gradient-to-r from-gold-500 to-gold-700 hover:from-gold-400 hover:to-gold-600 shadow-[0_5px_25px_rgba(234,179,8,0.4)] border border-gold-400/50">
+                    <i class="fa-brands fa-telegram text-lg"></i> Beli via Telegram
+                </button>
+            </div>
+
+            <!-- 4. PREMIUM CUSTOM -->
+            <div class="pricing-card rounded-3xl p-6 sm:p-8 border-t border-blue-500/20">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-black text-blue-400 uppercase tracking-widest">Custom / Eceran</span>
+                    <h2 class="text-4xl font-black text-white mt-2">Rp 880</h2>
+                    <p class="text-sm text-gray-400 font-medium mt-1">/ per Hari</p>
+                </div>
+                
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-200">
+                        <i class="fa-solid fa-check text-blue-400 mt-0.5"></i> <span><strong class="text-blue-400">10.000 requests</strong> / hari</span>
+                    </li>
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-200">
+                        <i class="fa-solid fa-check text-blue-400 mt-0.5"></i> <span>Durasi sesuai kantongmu</span>
+                    </li>
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-200">
+                        <i class="fa-solid fa-check text-blue-400 mt-0.5"></i> <span>Semua fitur Premium aktif</span>
+                    </li>
+                    <li class="feat-item flex items-start gap-3 text-sm text-gray-200">
+                        <i class="fa-solid fa-check text-blue-400 mt-0.5"></i> <span>Minimal pembelian 3 Hari</span>
+                    </li>
+                </ul>
+                
+                <button onclick="orderViaTelegram('Premium Custom Harian')" class="btn-telegram bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-600 hover:to-gray-800 shadow-[0_5px_20px_rgba(0,0,0,0.5)] border border-gray-600/50">
+                    <i class="fa-brands fa-telegram text-lg"></i> Tanya via Telegram
+                </button>
             </div>
 
         </div>
 
-        <div class="mt-8 text-center">
-            <p class="text-xs text-gray-500">
-                <i class="fa-solid fa-shield-halved mr-1"></i> 
-                Pembayaran aman via <span class="text-gold-400">Midtrans</span> / <span class="text-gold-400">QRIS</span>
+        <!-- Info Pembayaran -->
+        <div class="mt-12 sm:mt-16 text-center bg-black/40 border border-white/5 rounded-2xl p-6 backdrop-blur-md max-w-3xl mx-auto">
+            <h3 class="text-white font-bold mb-4 text-sm sm:text-base">Metode Pembayaran Tersedia</h3>
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6 opacity-70">
+                <span class="text-xs sm:text-sm font-black text-gray-300 flex items-center gap-2"><i class="fa-solid fa-qrcode text-lg sm:text-xl text-blue-400"></i> QRIS (All)</span>
+                <span class="text-xs sm:text-sm font-black text-gray-300 flex items-center gap-2"><i class="fa-solid fa-wallet text-lg sm:text-xl text-emerald-400"></i> DANA/OVO/GoPay</span>
+                <span class="text-xs sm:text-sm font-black text-gray-300 flex items-center gap-2"><i class="fa-solid fa-building-columns text-lg sm:text-xl text-gold-400"></i> Transfer Bank</span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-gray-500 mt-6 tracking-wide px-2">
+                <i class="fa-solid fa-shield-check mr-1"></i> Pembayaran diproses 100% aman dan langsung aktif setelah dikonfirmasi admin.
             </p>
         </div>
     </main>
 
     <script>
-        async function upgradePremium() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                alert('Silakan login terlebih dahulu!');
-                window.location.href = 'auth.html';
-                return;
-            }
+        // ==========================================
+        // FUNGSI ORDER VIA TELEGRAM
+        // ==========================================
+        function orderViaTelegram(planName) {
+            // GANTI "username_tele_lu" DENGAN USERNAME TELEGRAM LU (Tanpa @)
+            const telegramUsername = "username_tele_lu"; 
+            
+            let message = "Halo Admin KyuuApi! 👋\n\n";
+            message += "Saya tertarik untuk berlangganan layanan API.\n";
+            message += "📦 *Paket Pilihan*: " + planName + "\n\n";
+            message += "Mohon informasi untuk metode pembayaran dan cara aktivasinya. Terima kasih!";
 
-            if (confirm('Yakin ingin upgrade ke Premium Plan? (Rp 50.000/bulan)')) {
-                // Di sini nanti integrasi dengan payment gateway
-                // Untuk demo, langsung update ke database
-                const { error } = await supabaseClient
-                    .from('profiles')
-                    .update({ plan: 'premium' })
-                    .eq('id', session.user.id);
-
-                if (error) {
-                    alert('❌ Gagal upgrade: ' + error.message);
-                } else {
-                    alert('✅ Selamat! Anda sekarang Premium User! 🎉');
-                    window.location.href = 'home.html';
-                }
-            }
+            const encodedMessage = encodeURIComponent(message);
+            const telegramUrl = `https://t.me/${telegramUsername}?text=${encodedMessage}`;
+            
+            window.open(telegramUrl, '_blank');
         }
 
         async function logout() {
-            await supabaseClient.auth.signOut();
+            if (typeof supabaseClient !== 'undefined') {
+                await supabaseClient.auth.signOut();
+            } else if (typeof window.supabaseClient !== 'undefined') {
+                await window.supabaseClient.auth.signOut();
+            }
             window.location.href = 'auth.html';
         }
     </script>
