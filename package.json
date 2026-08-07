@@ -1,0 +1,14 @@
+{
+  "name": "kyuuapi-backend",
+  "version": "1.0.0",
+  "description": "KyuuApi REST API Premium",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
