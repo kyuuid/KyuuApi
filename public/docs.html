@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dokumentasi API - KyuuApi</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        blood: { 50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5', 400: '#f87171', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c', 800: '#991b1b', 900: '#7f1d1d' },
+                        gold: { 50: '#fefce8', 100: '#fef9c3', 200: '#fef08a', 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207', 800: '#854d0e', 900: '#713f12' },
+                        dark: { bg: '#0a0a0f', surface: '#14141e', card: '#1a1a2e', border: 'rgba(220, 38, 38, 0.15)' }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+/* ========================================
+   KYUUAPI - DARK BLOOD RED GLASSMORPHISM
+   + GOLD BLING / NEON GLOW (MOBILE OPTIMIZED)
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --dark-bg: #0a0a0f;
+    --glass-bg: rgba(26, 26, 46, 0.6);
+    --glass-border: rgba(220, 38, 38, 0.12);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html.dark {
+    background-color: var(--dark-bg);
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: #f1f5f9;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background 0.5s ease;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ===== BACKGROUND NEON BLOBS ===== */
+.bg-blob-1 {
+    position: absolute;
+    top: 5%;
+    left: -10%;
+    width: 100vw;
+    max-width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(220,38,38,0.1) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(60px);
+    z-index: -1;
+    animation: float 12s ease-in-out infinite alternate;
+}
+.bg-blob-2 {
+    position: absolute;
+    top: 30%;
+    right: -10%;
+    width: 100vw;
+    max-width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(234,179,8,0.08) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(50px);
+    z-index: -1;
+    animation: float 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes float {
+    0% { transform: translate(0px, 0px) scale(1); }
+    100% { transform: translate(10px, -20px) scale(1.05); }
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #dc2626, #eab308);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ef4444, #facc15);
+}
+
+/* ===== GLASSMORPHISM ===== */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.glass-nav {
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+}
+
+/* ===== PREMIUM ENDPOINT CARD ===== */
+.endpoint-card {
+    background: rgba(20, 20, 30, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.endpoint-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(220, 38, 38, 0.15);
+    background: rgba(26, 26, 40, 0.8);
+    border-color: rgba(220, 38, 38, 0.3);
+}
+
+/* Method Badges */
+.method-get { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+.method-post { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
+.method-put { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 0 10px rgba(245, 158, 11, 0.2); }
+.method-delete { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+
+/* ===== BUTTONS & INPUTS ===== */
+.btn-gold {
+    background: linear-gradient(135deg, #eab308, #a16207);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(234, 179, 8, 0.5);
+}
+
+.btn-outline-blood {
+    background: rgba(220, 38, 38, 0.05);
+    color: #ef4444;
+    border: 1px solid #dc2626;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.btn-outline-blood:hover {
+    background: rgba(220, 38, 38, 0.15);
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.2);
+}
+
+.input-blood {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    color: #f1f5f9;
+    padding: 10px 14px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+.input-blood:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Modal Glow */
+.modal-content {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(220, 38, 38, 0.2);
+}
+
+/* Fix Code Overflow */
+.code-scroll {
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
+}
+    </style>
+    
+    <!-- LOAD SUPABASE DAN CONFIG -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+</head>
+<body>
+    
+    <!-- Background Effects -->
+    <div class="bg-blob-1"></div>
+    <div class="bg-blob-2"></div>
+
+    <!-- NAVBAR (Mobile Optimized) -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+            <a href="home.html" class="text-lg sm:text-xl font-black flex items-center gap-1 sm:gap-2 group">
+                <span class="text-blood-500 group-hover:text-blood-400 transition">Kyuu</span>
+                <span class="text-gold-400 group-hover:text-gold-300 transition">Api</span>
+                <span class="text-[9px] sm:text-[10px] text-blood-400/50 font-mono ml-1 px-1.5 py-0.5 border border-blood-500/20 rounded">v1</span>
+            </a>
+            
+            <div class="flex items-center gap-3 sm:gap-4 overflow-x-auto no-scrollbar">
+                <a href="docs.html" class="text-xs sm:text-sm text-gold-400 font-bold border-b-2 border-gold-400 pb-0.5 shadow-gold whitespace-nowrap">Docs</a>
+                <a href="pricing.html" class="text-xs sm:text-sm text-gray-400 hover:text-gold-400 transition font-medium whitespace-nowrap">Pricing</a>
+                <a href="about.html" class="text-xs sm:text-sm text-gray-400 hover:text-gold-400 transition font-medium whitespace-nowrap">About</a>
+                <a href="profile.html" class="text-xs sm:text-sm text-gray-400 hover:text-white transition font-medium">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+                <button onclick="logout()" class="text-[10px] sm:text-xs bg-blood-600/20 hover:bg-blood-600/40 text-blood-400 px-2 py-1.5 sm:px-3 rounded-lg font-bold transition border border-blood-500/20">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-24 pb-12 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10 w-full">
+        
+        <!-- Header -->
+        <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
+            <div class="w-full">
+                <h1 class="text-3xl sm:text-4xl font-black text-white flex items-center gap-3">
+                    <i class="fa-solid fa-book-journal-whills text-gold-400 drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]"></i>
+                    Eksplorasi API
+                </h1>
+                <p class="text-gray-400 mt-3 flex items-center gap-2 text-xs sm:text-sm break-all">
+                    <i class="fa-solid fa-server text-blood-400"></i> Base URL: 
+                    <span class="text-gold-400 font-mono bg-black/40 px-2 sm:px-3 py-1 rounded-lg border border-white/5 shadow-inner">https://kyuuapi.eu.cc/api/v1</span>
+                </p>
+            </div>
+            
+            <!-- API Key Input for Testing -->
+            <div class="glass rounded-xl p-3 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 border-gold-500/20 w-full md:max-w-xs shrink-0">
+                <span class="text-[11px] sm:text-xs font-bold text-gray-400 whitespace-nowrap"><i class="fa-solid fa-key text-gold-400 mr-1 sm:mr-2"></i>My API Key:</span>
+                <input type="text" id="test-api-key" placeholder="Terisi otomatis..." class="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-emerald-400 font-mono focus:outline-none" readonly>
+            </div>
+        </div>
+
+        <!-- AREA KHUSUS OWNER AKAN DI-RENDER DI SINI SECARA OTOMATIS OLEH JS -->
+
+        <!-- Search & Filter -->
+        <div class="glass rounded-2xl p-4 sm:p-5 mb-6 flex flex-col md:flex-row gap-3 filter-section border-t border-white/10 shadow-lg w-full">
+            <div class="flex-1 relative w-full">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                <input type="text" id="search-endpoint" placeholder="Cari path..." class="input-blood w-full pl-10 text-xs sm:text-sm shadow-inner">
+            </div>
+            <div class="flex flex-row gap-2 w-full md:w-auto">
+                <div class="relative w-full md:w-36">
+                    <i class="fa-solid fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-[10px] sm:text-xs"></i>
+                    <select id="filter-method" class="input-blood w-full pl-8 py-2 text-[11px] sm:text-sm shadow-inner appearance-none cursor-pointer">
+                        <option value="all">Semua Method</option>
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+                </div>
+                <div class="relative w-full md:w-36">
+                    <i class="fa-solid fa-layer-group absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-[10px] sm:text-xs"></i>
+                    <select id="filter-category" class="input-blood w-full pl-8 py-2 text-[11px] sm:text-sm shadow-inner appearance-none cursor-pointer">
+                        <option value="all">Semua Kategori</option>
+                        <option value="anime">Anime</option>
+                        <option value="manga">Manga</option>
+                        <option value="fun">Fun</option>
+                        <option value="utility">Utility</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Endpoints List -->
+        <div id="endpoints-container" class="space-y-4">
+            <div class="text-center py-16 text-gray-500 glass rounded-3xl mx-2">
+                <i class="fa-solid fa-circle-notch fa-spin text-3xl sm:text-4xl text-gold-400 mb-4 drop-shadow-[0_0_15px_rgba(234,179,8,0.5)]"></i>
+                <p class="font-bold tracking-widest text-xs sm:text-sm uppercase">Sinkronisasi Database...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================================== -->
+    <!-- MODAL TEST ENDPOINT -->
+    <!-- ============================================== -->
+    <div id="test-modal" class="fixed inset-0 bg-black/95 flex items-center justify-center z-[100] hidden backdrop-blur-xl p-3 sm:p-4 transition-opacity">
+        <div class="glass modal-content rounded-2xl sm:rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-4 sm:p-8 bg-[#0a0a0f]/95 border border-blood-500/30 relative flex flex-col">
+            
+            <!-- Header Modal -->
+            <div class="flex items-center justify-between mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-white/10 shrink-0">
+                <h3 class="text-lg sm:text-xl font-black text-white flex items-center gap-2 sm:gap-3 flex-wrap">
+                    <span id="test-method-badge" class="text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-lg font-bold uppercase tracking-widest shadow-lg">GET</span>
+                    <span id="test-path" class="font-mono text-gold-400 tracking-wide text-sm sm:text-lg break-all">/endpoint</span>
+                </h3>
+                <button onclick="closeTestModal()" class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition shrink-0 ml-2">
+                    <i class="fa-solid fa-xmark text-sm sm:text-lg"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 flex-1 overflow-y-auto pr-1">
+                <!-- Kolom Kiri: Info & Params (FORM) -->
+                <div class="flex flex-col gap-4 sm:gap-6">
+                    <div>
+                        <label class="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-circle-info text-blue-400"></i> Deskripsi
+                        </label>
+                        <p id="test-desc" class="text-xs sm:text-sm text-gray-300 leading-relaxed bg-black/40 p-3 sm:p-4 rounded-xl border border-white/5 shadow-inner"></p>
+                    </div>
+
+                    <div id="test-params"></div>
+                </div>
+
+                <!-- Kolom Kanan: Response -->
+                <div class="flex flex-col">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-code text-emerald-400"></i> API Response
+                        </label>
+                        <button onclick="copyTestResponse()" class="text-[9px] sm:text-[10px] font-bold bg-white/5 hover:bg-emerald-500/20 text-gray-300 hover:text-emerald-400 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg transition border border-white/10 flex items-center gap-1 sm:gap-2">
+                            <i class="fa-regular fa-copy"></i> Copy JSON
+                        </button>
+                    </div>
+                    <div id="test-response" class="bg-[#050505] rounded-xl p-3 sm:p-5 font-mono text-[10px] sm:text-xs text-emerald-400 min-h-[120px] max-h-48 overflow-y-auto code-scroll border border-white/10 shadow-inner w-full"></div>
+                </div>
+            </div>
+
+            <hr class="border-white/10 my-4 sm:my-6 shrink-0">
+            
+            <!-- Code Snippets Section -->
+            <div class="shrink-0">
+                <div class="flex flex-col sm:flex-row justify-between gap-3 mb-3">
+                    <label class="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-terminal text-gold-400"></i> Script Integration
+                    </label>
+                    <div class="flex flex-wrap gap-1.5 sm:gap-2 bg-black/40 p-1 rounded-xl border border-white/5 justify-center sm:justify-start">
+                        <button onclick="showCode('curl')" class="text-[10px] sm:text-xs px-2 sm:px-4 py-1.5 rounded-lg bg-white/10 hover:bg-gold-500/20 hover:text-gold-400 transition font-bold text-gray-300 flex items-center">cURL</button>
+                        <button onclick="showCode('js')" class="text-[10px] sm:text-xs px-2 sm:px-4 py-1.5 rounded-lg bg-white/10 hover:bg-gold-500/20 hover:text-gold-400 transition font-bold text-gray-300 flex items-center"><i class="fa-brands fa-node-js text-green-500 mr-1 sm:mr-1.5"></i>Node.js</button>
+                        <button onclick="showCode('python')" class="text-[10px] sm:text-xs px-2 sm:px-4 py-1.5 rounded-lg bg-white/10 hover:bg-gold-500/20 hover:text-gold-400 transition font-bold text-gray-300 flex items-center"><i class="fa-brands fa-python text-blue-400 mr-1 sm:mr-1.5"></i>Python</button>
+                        <button onclick="showCode('php')" class="text-[10px] sm:text-xs px-2 sm:px-4 py-1.5 rounded-lg bg-white/10 hover:bg-gold-500/20 hover:text-gold-400 transition font-bold text-gray-300 flex items-center"><i class="fa-brands fa-php text-indigo-400 mr-1 sm:mr-1.5"></i>PHP</button>
+                    </div>
+                </div>
+                
+                <div class="relative group mt-2">
+                    <button onclick="copyCodeSnippet()" class="absolute top-2 right-2 text-[10px] sm:text-xs font-bold bg-[#14141e]/90 hover:bg-gold-500/20 text-gray-300 hover:text-gold-400 px-2 sm:px-3 py-1.5 rounded-lg transition border border-white/10 shadow-lg flex items-center gap-1 sm:gap-2 z-10">
+                        <i class="fa-regular fa-copy"></i> Copy Script
+                    </button>
+                    <div id="code-display" class="bg-[#050505] rounded-xl p-3 sm:p-5 pt-10 font-mono text-[11px] sm:text-[13px] text-gray-300 overflow-y-auto code-scroll max-h-48 border border-white/10 shadow-inner w-full">
+                        <span class="text-gray-500 italic">Pilih bahasa pemrograman di atas untuk melihat contoh kode.</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- MODAL TAMBAH ENDPOINT (KHUSUS OWNER) -->
+    <!-- ============================================== -->
+    <div id="add-endpoint-modal" class="fixed inset-0 bg-black/95 flex items-center justify-center z-[100] hidden backdrop-blur-xl p-4 transition-opacity">
+        <div class="glass rounded-3xl w-full max-w-lg p-5 sm:p-8 border border-gold-500/30 shadow-[0_0_50px_rgba(234,179,8,0.15)] bg-[#0a0a0f]/95 overflow-y-auto max-h-[90vh]">
+            <h3 class="text-lg sm:text-xl font-black text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                <i class="fa-solid fa-wand-magic-sparkles text-gold-400"></i> Registrasi Endpoint
+            </h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] sm:text-[11px] text-gray-400 uppercase font-bold tracking-wider ml-1">Nama Endpoint</label>
+                    <input type="text" id="new-ep-name" placeholder="Contoh: Get Anime Data" class="input-blood mt-1.5 w-full text-xs sm:text-sm">
+                </div>
+                <div>
+                    <label class="text-[10px] sm:text-[11px] text-gray-400 uppercase font-bold tracking-wider ml-1">Path (URL Route)</label>
+                    <input type="text" id="new-ep-path" placeholder="Contoh: /anime/search" class="input-blood mt-1.5 w-full text-xs sm:text-sm font-mono">
+                </div>
+                <div class="grid grid-cols-2 gap-3 sm:gap-5">
+                    <div>
+                        <label class="text-[10px] sm:text-[11px] text-gray-400 uppercase font-bold tracking-wider ml-1">Method</label>
+                        <select id="new-ep-method" class="input-blood mt-1.5 w-full bg-black/60 text-xs sm:text-sm appearance-none font-bold">
+                            <option value="GET" class="text-emerald-400">GET</option>
+                            <option value="POST" class="text-blue-400">POST</option>
+                            <option value="PUT" class="text-amber-400">PUT</option>
+                            <option value="DELETE" class="text-red-400">DELETE</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] sm:text-[11px] text-gray-400 uppercase font-bold tracking-wider ml-1">Kategori</label>
+                        <select id="new-ep-category" class="input-blood mt-1.5 w-full bg-black/60 text-xs sm:text-sm appearance-none">
+                            <option value="anime">Anime</option>
+                            <option value="manga">Manga</option>
+                            <option value="fun">Fun</option>
+                            <option value="utility">Utility</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] sm:text-[11px] text-gray-400 uppercase font-bold tracking-wider ml-1">Deskripsi</label>
+                    <textarea id="new-ep-desc" class="input-blood mt-1.5 w-full h-20 sm:h-24 text-xs sm:text-sm resize-none" placeholder="Fungsionalitas dari endpoint ini..."></textarea>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-6 sm:mt-8">
+                <button onclick="closeAddEndpointModal()" class="w-1/2 py-2.5 sm:py-3.5 bg-white/5 hover:bg-white/10 text-gray-300 font-bold rounded-xl transition text-xs sm:text-sm border border-white/10">Batal</button>
+                <button onclick="saveNewEndpoint()" id="btn-save-ep" class="w-1/2 py-2.5 sm:py-3.5 bg-gradient-to-r from-gold-600 to-gold-700 hover:from-gold-500 hover:to-gold-600 text-white font-bold rounded-xl transition text-xs sm:text-sm shadow-[0_5px_15px_rgba(234,179,8,0.3)]">Publish</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- LOGIKA JAVASCRIPT UTAMA (SUDAH DIPERBAIKI) -->
+    <!-- ============================================== -->
+    <script>
+        let endpoints = [];
+        let currentEndpoint = null;
+        let testApiKey = 'YOUR_API_KEY';
+        let currentUserRole = 'member';
+        let sbClient = null;
+
+        const BASE_URL = 'https://kyuuapi.eu.cc/api/v1';
+
+        async function initDocs() {
+            try {
+                // Deteksi Client Supabase dari Berbagai Format Konfigurasi
+                if (typeof window.supabaseClient !== 'undefined') {
+                    sbClient = window.supabaseClient;
+                } else if (typeof window._supabase !== 'undefined') {
+                    sbClient = window._supabase;
+                } else if (typeof window.supabase !== 'undefined' && typeof window.CONFIG !== 'undefined') {
+                    sbClient = window.supabase.createClient(window.CONFIG.SUPABASE_URL, window.CONFIG.SUPABASE_ANON_KEY);
+                } else if (typeof window.supabase !== 'undefined' && typeof CONFIG !== 'undefined') {
+                    sbClient = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+                }
+
+                if (!sbClient) {
+                    document.getElementById('endpoints-container').innerHTML = `
+                        <div class="glass rounded-3xl p-8 text-center border border-red-500/40 text-red-400 mx-2">
+                            <i class="fa-solid fa-triangle-exclamation text-3xl mb-3"></i>
+                            <p class="font-bold text-sm">Gagal terhubung ke Supabase!</p>
+                            <p class="text-xs text-gray-400 mt-1">Pastikan file config.js sudah ter-load dan konfigurasi URL / API Key valid.</p>
+                        </div>`;
+                    return;
+                }
+
+                // Ambil Data Profile & Session Tanpa Memblokir Load Endpoint
+                try {
+                    const { data: { session }, error: authError } = await sbClient.auth.getSession();
+                    if (session && !authError) {
+                        const { data: profile } = await sbClient
+                            .from('profiles')
+                            .select('role, api_key')
+                            .eq('id', session.user.id)
+                            .maybeSingle();
+
+                        if (profile) {
+                            currentUserRole = profile.role || 'member';
+                            if (profile.api_key) testApiKey = profile.api_key;
+                            document.getElementById('test-api-key').value = testApiKey;
+                        }
+                    }
+                } catch (profileErr) {
+                    console.warn("Gagal mengambil profil/sesi:", profileErr.message);
+                }
+
+                renderAdminControls();
+                await fetchEndpointsFromDB();
+
+            } catch (err) {
+                console.error("Critical Error pada initDocs:", err);
+                document.getElementById('endpoints-container').innerHTML = `
+                    <div class="glass rounded-3xl p-8 text-center border border-red-500/40 text-red-400 mx-2">
+                        <i class="fa-solid fa-circle-xmark text-3xl mb-3"></i>
+                        <p class="font-bold text-sm">Terjadi Kesalahan Sistem:</p>
+                        <p class="text-xs text-gray-300 mt-2 font-mono bg-black/40 p-3 rounded-xl border border-white/5 break-all">${err.message}</p>
+                    </div>`;
+            }
+        }
+
+        async function fetchEndpointsFromDB() {
+            const container = document.getElementById('endpoints-container');
+            try {
+                const { data, error } = await sbClient
+                    .from('endpoints')
+                    .select('*')
+                    .order('created_at', { ascending: true });
+
+                if (error) {
+                    container.innerHTML = `
+                        <div class="glass rounded-3xl p-8 text-center border border-red-500/40 text-red-400 mx-2">
+                            <i class="fa-solid fa-database text-3xl mb-3"></i>
+                            <p class="font-bold text-sm">Error Database Supabase:</p>
+                            <p class="text-xs text-gray-300 mt-2 font-mono bg-black/40 p-3 rounded-xl border border-white/5">${error.message}</p>
+                            <p class="text-[11px] text-gray-400 mt-2">Pastikan tabel "endpoints" sudah dibuat di database dan RLS policy mengizinkan akses SELECT.</p>
+                        </div>`;
+                    return;
+                }
+
+                endpoints = data || [];
+                renderEndpoints(endpoints);
+            } catch (err) {
+                container.innerHTML = `
+                    <div class="glass rounded-3xl p-8 text-center border border-red-500/40 text-red-400 mx-2">
+                        <i class="fa-solid fa-wifi text-3xl mb-3"></i>
+                        <p class="font-bold text-sm">Gagal Mengambil Data Endpoint:</p>
+                        <p class="text-xs text-gray-300 mt-2 font-mono bg-black/40 p-3 rounded-xl border border-white/5">${err.message}</p>
+                    </div>`;
+            }
+        }
+
+        function renderAdminControls() {
+            if (currentUserRole !== 'owner') return;
+
+            const adminDiv = document.createElement('div');
+            adminDiv.className = "glass rounded-3xl p-5 sm:p-6 mb-6 sm:mb-8 border border-gold-500/50 bg-gradient-to-r from-gold-500/10 to-transparent shadow-[0_0_30px_rgba(234,179,8,0.1)] relative overflow-hidden";
+            adminDiv.innerHTML = `
+                <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                    <i class="fa-solid fa-crown text-6xl sm:text-8xl text-gold-500"></i>
+                </div>
+                <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-base sm:text-lg font-black text-gold-400 uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-user-shield"></i> Owner Dashboard</h3>
+                        <p class="text-[11px] sm:text-xs text-gray-300 mt-1">Anda memiliki hak akses penuh untuk memodifikasi database API.</p>
+                    </div>
+                    <button onclick="openAddEndpointModal()" class="btn-gold w-full md:w-auto text-xs sm:text-sm py-2.5 sm:py-2">
+                        <i class="fa-solid fa-plus-circle"></i> Tambah Endpoint
+                    </button>
+                </div>
+            `;
+            
+            const filterSection = document.querySelector('.filter-section');
+            if(filterSection) filterSection.parentNode.insertBefore(adminDiv, filterSection);
+        }
+
+        function renderEndpoints(filteredList) {
+            const container = document.getElementById('endpoints-container');
+            
+            if (filteredList.length === 0) {
+                container.innerHTML = `
+                    <div class="glass rounded-3xl p-10 text-center border border-white/5 mx-2">
+                        <i class="fa-solid fa-box-open text-3xl text-gray-600 mb-3"></i>
+                        <p class="text-gray-400 text-xs sm:text-sm font-medium">Tidak ada data endpoint yang ditemukan di database.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredList.map(ep => {
+                let badgeClass = '';
+                if (ep.method === 'GET') badgeClass = 'method-get';
+                else if (ep.method === 'POST') badgeClass = 'method-post';
+                else if (ep.method === 'PUT') badgeClass = 'method-put';
+                else badgeClass = 'method-delete';
+                
+                const deleteBtn = currentUserRole === 'owner' ? `
+                    <button onclick="deleteEndpoint('${ep.id}')" title="Hapus Endpoint Permanen" class="bg-red-500/10 hover:bg-red-500/90 hover:text-white text-red-500 border border-red-500/20 text-xs px-3 py-1.5 sm:py-2 rounded-lg font-bold transition flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                ` : '';
+                
+                return `
+                <div class="endpoint-card rounded-2xl p-4 sm:p-5">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
+                        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                            <span class="text-[10px] sm:text-xs font-black px-2 sm:px-3 py-1 rounded-lg tracking-wider ${badgeClass}">${ep.method}</span>
+                            <span class="font-mono text-xs sm:text-[14px] text-white font-medium bg-black/40 px-2 sm:px-3 py-1 rounded border border-white/5 break-all">${ep.path}</span>
+                            <span class="text-xs text-gray-600 hidden lg:inline">|</span>
+                            <span class="text-[9px] sm:text-[10px] text-gray-400 uppercase font-black tracking-widest bg-white/5 px-2 py-1 rounded mt-1 sm:mt-0">${ep.category}</span>
+                        </div>
+                        <div class="flex flex-row gap-2 mt-2 lg:mt-0 w-full lg:w-auto">
+                            <button onclick="testEndpoint('${ep.id}')" class="btn-gold text-[11px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 flex-1 lg:flex-none justify-center">
+                                <i class="fa-solid fa-flask"></i> Coba API
+                            </button>
+                            <button onclick="copyEndpointUrl('${ep.path}')" class="btn-outline-blood text-xs px-3 py-1.5 sm:py-2 bg-black/30 shrink-0" title="Salin URL">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                            ${deleteBtn}
+                        </div>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-gray-400 mt-3 sm:mt-4 leading-relaxed pl-1">${ep.description || 'Tidak ada keterangan fungsi.'}</p>
+                </div>
+            `}).join('');
+        }
+
+        // ==========================================
+        // FUNGSI COPY AUTOMATIS
+        // ==========================================
+        function copyTestResponse() {
+            const text = document.getElementById('test-response').innerText;
+            if(text && text !== 'Memuat...' && text !== 'Mengirim request...') {
+                navigator.clipboard.writeText(text);
+                alert('JSON Response berhasil disalin!');
+            }
+        }
+
+        function copyCodeSnippet() {
+            const text = document.getElementById('code-display').innerText;
+            if(text && !text.includes('Pilih bahasa pemrograman')) {
+                navigator.clipboard.writeText(text);
+                alert('Script Code berhasil disalin!');
+            }
+        }
+
+        function copyEndpointUrl(path) {
+            const url = BASE_URL + path;
+            navigator.clipboard.writeText(url);
+            alert('URL Endpoint disalin:\n' + url);
+        }
+
+        // ==========================================
+        // FUNGSI ADMIN
+        // ==========================================
+        function openAddEndpointModal() {
+            document.getElementById('new-ep-name').value = '';
+            document.getElementById('new-ep-path').value = '';
+            document.getElementById('new-ep-desc').value = '';
+            document.getElementById('add-endpoint-modal').classList.remove('hidden');
+        }
+
+        function closeAddEndpointModal() {
+            document.getElementById('add-endpoint-modal').classList.add('hidden');
+        }
+
+        async function saveNewEndpoint() {
+            const btn = document.getElementById('btn-save-ep');
+            const name = document.getElementById('new-ep-name').value.trim();
+            const path = document.getElementById('new-ep-path').value.trim();
+            const method = document.getElementById('new-ep-method').value;
+            const category = document.getElementById('new-ep-category').value;
+            const desc = document.getElementById('new-ep-desc').value.trim();
+
+            if (!name || !path) {
+                alert('Nama dan Path endpoint wajib diisi!');
+                return;
+            }
+
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+
+            const newData = {
+                name: name,
+                path: path,
+                method: method,
+                category: category,
+                description: desc,
+                params: [], 
+                mock: { status: "success", data: "Sample data returned from KyuuApi." }
+            };
+
+            const { error } = await sbClient.from('endpoints').insert([newData]);
+            
+            if (error) {
+                alert("Gagal tambah endpoint: " + error.message);
+            } else {
+                alert("Berhasil! Endpoint baru online.");
+                closeAddEndpointModal();
+                fetchEndpointsFromDB();
+            }
+
+            btn.innerText = 'Publish';
+            btn.disabled = false;
+        }
+
+        async function deleteEndpoint(id) {
+            if (!confirm("PERINGATAN! Yakin ingin menghapus endpoint ini?")) return;
+            const { error } = await sbClient.from('endpoints').delete().eq('id', id);
+            if (error) alert("Gagal menghapus: " + error.message);
+            else fetchEndpointsFromDB();
+        }
+
+        // ==========================================
+        // FILTER & TEST MODAL
+        // ==========================================
+        function filterEndpoints() {
+            const search = document.getElementById('search-endpoint').value.toLowerCase();
+            const method = document.getElementById('filter-method').value;
+            const category = document.getElementById('filter-category').value;
+            
+            const filtered = endpoints.filter(ep => {
+                const matchSearch = ep.path.toLowerCase().includes(search) || 
+                                   (ep.description && ep.description.toLowerCase().includes(search)) ||
+                                   ep.name.toLowerCase().includes(search);
+                const matchMethod = method === 'all' || ep.method === method;
+                const matchCategory = category === 'all' || ep.category === category;
+                return matchSearch && matchMethod && matchCategory;
+            });
+            renderEndpoints(filtered);
+        }
+
+        function testEndpoint(id) {
+            currentEndpoint = endpoints.find(e => e.id === id);
+            if (!currentEndpoint) return;
+            
+            let badgeClass = 'text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-lg font-bold uppercase tracking-widest shadow-lg ';
+            if (currentEndpoint.method === 'GET') badgeClass += 'method-get';
+            else if (currentEndpoint.method === 'POST') badgeClass += 'method-post';
+            else if (currentEndpoint.method === 'PUT') badgeClass += 'method-put';
+            else badgeClass += 'method-delete';
+            
+            document.getElementById('test-method-badge').className = badgeClass;
+            document.getElementById('test-method-badge').innerText = currentEndpoint.method;
+            document.getElementById('test-path').innerText = currentEndpoint.path;
+            document.getElementById('test-desc').innerText = currentEndpoint.description || 'Tidak ada deskripsi.';
+
+            const paramsDiv = document.getElementById('test-params');
+            
+            if (currentEndpoint.params && currentEndpoint.params.length > 0) {
+                paramsDiv.innerHTML = `
+                    <form id="dynamic-api-form" class="space-y-3" onsubmit="submitApiRequest(event)">
+                        <label class="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-sliders text-gold-400"></i> Masukkan Parameter
+                        </label>
+                        <div class="bg-black/40 p-3 sm:p-4 rounded-xl border border-white/5 shadow-inner">
+                            ${currentEndpoint.params.map(p => {
+                                if (p.type === 'file') {
+                                    return `
+                                    <div class="mb-3">
+                                        <label class="text-xs text-gold-400 font-bold">${p.name} ${p.required ? '<span class="text-red-500">*</span>' : ''}</label>
+                                        <input type="file" id="param_${p.name}" name="${p.name}" ${p.required ? 'required' : ''} class="w-full text-xs text-gray-300 mt-1 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-blood-500 file:text-white hover:file:bg-blood-600">
+                                        <p class="text-[10px] text-gray-500 mt-1">${p.description}</p>
+                                    </div>`;
+                                } else {
+                                    return `
+                                    <div class="mb-3">
+                                        <label class="text-xs text-gold-400 font-bold">${p.name} ${p.required ? '<span class="text-red-500">*</span>' : ''}</label>
+                                        <input type="text" id="param_${p.name}" name="${p.name}" placeholder="${p.description}" ${p.required ? 'required' : ''} class="input-blood w-full mt-1 text-xs py-1.5">
+                                    </div>`;
+                                }
+                            }).join('')}
+                            
+                            <button type="submit" id="btn-submit-request" class="btn-gold w-full mt-2 text-xs py-2 shadow-lg">
+                                <i class="fa-solid fa-paper-plane"></i> Kirim Request
+                            </button>
+                        </div>
+                    </form>
+                `;
+            } else {
+                paramsDiv.innerHTML = `
+                    <div class="text-center py-4 bg-black/40 rounded-xl border border-white/5">
+                        <p class="text-xs text-gray-500 italic">Endpoint ini tidak memerlukan parameter.</p>
+                        <button onclick="submitApiRequest(event)" id="btn-submit-request" class="btn-gold mt-3 text-xs py-2 shadow-lg px-4">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Request
+                        </button>
+                    </div>
+                `;
+            }
+
+            document.getElementById('test-response').innerText = JSON.stringify(currentEndpoint.mock?.success || currentEndpoint.mock || { status: "success" }, null, 4);
+            document.getElementById('code-display').innerHTML = '<span class="text-gray-500 italic text-[11px] sm:text-xs">Pilih bahasa pemrograman di atas untuk melihat Script API lengkap.</span>';
+
+            document.getElementById('test-modal').classList.remove('hidden');
+        }
+
+        async function submitApiRequest(event) {
+    if(event) event.preventDefault();
+    
+    const btn = document.getElementById('btn-submit-request');
+    if(btn) {
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
+        btn.disabled = true;
+    }
+
+    const responseBox = document.getElementById('test-response');
+    responseBox.innerText = "Mengirim request ke server...";
+    // Reset warna teks jadi default (emerald) saat loading
+    responseBox.className = "bg-[#050505] rounded-xl p-3 sm:p-5 font-mono text-[10px] sm:text-xs text-emerald-400 min-h-[120px] max-h-48 overflow-y-auto code-scroll border border-white/10 shadow-inner w-full";
+
+    try {
+        let url = BASE_URL + currentEndpoint.path;
+        let options = {
+            method: currentEndpoint.method,
+            headers: {
+                'Authorization': 'Bearer ' + testApiKey
+            }
+        };
+
+        // Handle Parameter dari Form (Jika ada)
+        const form = document.getElementById('dynamic-api-form');
+        if (form) {
+            const formData = new FormData(form);
+            
+            if (currentEndpoint.method === 'GET') {
+                const params = new URLSearchParams();
+                for (const [key, value] of formData.entries()) {
+                    if (value) params.append(key, value);
+                }
+                const queryString = params.toString();
+                if (queryString) url += '?' + queryString;
+            } else {
+                // Handle POST/PUT/DELETE
+                let hasFile = false;
+                for (const value of formData.values()) {
+                    if (value instanceof File && value.size > 0) hasFile = true;
+                }
+
+                if (hasFile) {
+                    options.body = formData; // Browser otomatis set multipart/form-data
+                } else {
+                    const jsonBody = {};
+                    for (const [key, value] of formData.entries()) {
+                        jsonBody[key] = value;
+                    }
+                    options.headers['Content-Type'] = 'application/json';
+                    options.body = JSON.stringify(jsonBody);
+                }
+            }
+        }
+
+        // Hit API Sungguhan
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        // Tampilkan JSON Real-time
+        responseBox.innerText = JSON.stringify(data, null, 4);
+
+        // Ubah warna teks jadi merah kalau API mengembalikan status error (misal 404/500)
+        if (!response.ok) {
+            responseBox.className = "bg-[#050505] rounded-xl p-3 sm:p-5 font-mono text-[10px] sm:text-xs text-red-400 min-h-[120px] max-h-48 overflow-y-auto code-scroll border border-red-500/30 shadow-inner w-full";
+        }
+
+    } catch (error) {
+        // Tangkap error jika API benar-benar DOWN atau terkena blokir CORS
+        responseBox.innerText = JSON.stringify({ 
+            status: "error", 
+            message: "Koneksi gagal! Server API mungkin sedang down, tidak ditemukan, atau terblokir CORS.",
+            detail: error.message 
+        }, null, 4);
+        responseBox.className = "bg-[#050505] rounded-xl p-3 sm:p-5 font-mono text-[10px] sm:text-xs text-red-400 min-h-[120px] max-h-48 overflow-y-auto code-scroll border border-red-500/30 shadow-inner w-full";
+    } finally {
+        if(btn) {
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Request';
+            btn.disabled = false;
+        }
+    }
+}
+
+
+        function closeTestModal() {
+            document.getElementById('test-modal').classList.add('hidden');
+        }
+
+        function showCode(lang) {
+            const ep = currentEndpoint;
+            if (!ep) return;
+            
+            let code = '';
+            switch(lang) {
+                case 'curl':
+                    code = `curl -X ${ep.method} "${BASE_URL}${ep.path}" \\
+  -H "Authorization: Bearer ${testApiKey}" \\
+  -H "Content-Type: application/json"`;
+                    break;
+                case 'js':
+                    code = `// Fetch API (Node.js / Browser)
+const response = await fetch("${BASE_URL}${ep.path}", {
+    method: "${ep.method}",
+    headers: {
+        "Authorization": "Bearer ${testApiKey}",
+        "Content-Type": "application/json"
+    }
+});
+
+const data = await response.json();
+console.log(data);`;
+                    break;
+                case 'python':
+                    code = `# Menggunakan requests library
+import requests
+
+url = "${BASE_URL}${ep.path}"
+headers = {
+    "Authorization": f"Bearer {testApiKey}",
+    "Content-Type": "application/json"
+}
+
+response = requests.${ep.method.toLowerCase()}(url, headers=headers)
+data = response.json()
+print(data)`;
+                    break;
+                case 'php':
+                    code = `<?php
+// Menggunakan cURL PHP
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+    CURLOPT_URL => "${BASE_URL}${ep.path}",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => "${ep.method}",
+    CURLOPT_HTTPHEADER => [
+        "Authorization: Bearer ${testApiKey}",
+        "Content-Type: application/json"
+    ]
+]);
+
+$response = curl_exec($curl);
+$data = json_decode($response, true);
+
+print_r($data);
+?>`;
+                    break;
+            }
+            
+            document.getElementById('code-display').innerText = code;
+        }
+
+        async function logout() {
+            if (sbClient) await sbClient.auth.signOut();
+            window.location.href = 'auth.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initDocs();
+            document.getElementById('search-endpoint').addEventListener('input', filterEndpoints);
+            document.getElementById('filter-method').addEventListener('change', filterEndpoints);
+            document.getElementById('filter-category').addEventListener('change', filterEndpoints);
+        });
+    </script>
+</body>
+</html>
