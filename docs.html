@@ -157,131 +157,6 @@
             50% { box-shadow: 0 0 40px rgba(220, 38, 38, 0.3), 0 0 80px rgba(220, 38, 38, 0.1); }
         }
 
-        /* ===== TEXT GRADIENTS ===== */
-        .text-blood-gold {
-            background: linear-gradient(135deg, #dc2626, #eab308, #dc2626);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmerBloodGold 3s ease-in-out infinite;
-        }
-        @keyframes shimmerBloodGold {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* ===== NEON TEXT ===== */
-        .neon-blood {
-            text-shadow: 0 0 10px rgba(220, 38, 38, 0.5), 0 0 20px rgba(220, 38, 38, 0.3), 0 0 40px rgba(220, 38, 38, 0.1);
-        }
-        .neon-gold {
-            text-shadow: 0 0 10px rgba(234, 179, 8, 0.4), 0 0 20px rgba(234, 179, 8, 0.2);
-        }
-
-        /* ===== ROLE STYLES (dari profile.html) ===== */
-        .role-owner {
-            background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rgb-text 3s ease infinite;
-            font-weight: 900;
-        }
-        @keyframes rgb-text {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .role-breaker {
-            background: linear-gradient(45deg, #a855f7, #ec4899, #6366f1, #06b6d4, #a855f7);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: nebula-glow 3s ease infinite;
-            font-weight: 900;
-            filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
-        }
-        @keyframes nebula-glow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .role-nolep {
-            background: linear-gradient(45deg, #ff0000, #1a0000, #8b0000, #000000, #ff0000);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: dark-blood 2s ease infinite;
-            font-weight: 900;
-            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 10px rgba(139, 0, 0, 0.6));
-        }
-        @keyframes dark-blood {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* ===== AVATAR FRAMES (dari profile.html) ===== */
-        .avatar-frame {
-            position: relative;
-            display: inline-block;
-            border-radius: 9999px;
-            padding: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .frame-common {
-            background: linear-gradient(135deg, #9ca3af, #4b5563);
-            box-shadow: 0 0 10px rgba(156, 163, 175, 0.6);
-        }
-        .frame-rare {
-            background: linear-gradient(135deg, #3b82f6, #06b6d4, #10b981);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
-            animation: rare-glow 2s infinite alternate;
-        }
-        @keyframes rare-glow {
-            0% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.6); }
-            100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.9); }
-        }
-
-        .frame-legendary {
-            background: linear-gradient(45deg, #f59e0b, #fef08a, #d97706, #fef08a);
-            background-size: 300% 300%;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.9), 0 0 10px rgba(254, 240, 138, 0.8);
-            animation: legendary-shine 2.5s infinite linear;
-        }
-        @keyframes legendary-shine {
-            0% { background-position: 0% 50%; box-shadow: 0 0 12px rgba(245, 158, 11, 0.8); }
-            50% { background-position: 100% 50%; box-shadow: 0 0 25px rgba(251, 191, 36, 1), 0 0 15px rgba(255, 255, 255, 0.8); }
-            100% { background-position: 0% 50%; box-shadow: 0 0 12px rgba(245, 158, 11, 0.8); }
-        }
-
-        .frame-mythic {
-            background: linear-gradient(270deg, #ec4899, #8b5cf6, #3b82f6, #06b6d4, #ef4444, #ec4899);
-            background-size: 400% 400%;
-            box-shadow: 0 0 25px rgba(236, 72, 153, 0.9), 0 0 15px rgba(139, 92, 246, 0.8);
-            animation: mythic-aura 3s infinite linear;
-        }
-        @keyframes mythic-aura {
-            0% { background-position: 0% 50%; filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.8)); }
-            50% { background-position: 100% 50%; filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.9)); }
-            100% { background-position: 0% 50%; filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.8)); }
-        }
-
-        .frame-mythic-red {
-            background: linear-gradient(270deg, #ff0000, #7f1d1d, #ff4500, #dc2626, #ff0000);
-            background-size: 400% 400%;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.9), 0 0 15px rgba(220, 38, 38, 0.8);
-            animation: mythic-blood-aura 2.5s infinite linear;
-        }
-        @keyframes mythic-blood-aura {
-            0% { background-position: 0% 50%; filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)); }
-            50% { background-position: 100% 50%; filter: drop-shadow(0 0 25px rgba(255, 69, 0, 1)); }
-            100% { background-position: 0% 50%; filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)); }
-        }
-
         /* ===== BUTTONS ===== */
         .btn-blood {
             background: linear-gradient(135deg, #dc2626, #991b1b);
@@ -327,20 +202,6 @@
             box-shadow: 0 0 30px rgba(220, 38, 38, 0.1);
         }
 
-        .btn-outline-gold {
-            background: transparent;
-            color: #eab308;
-            border: 1.5px solid #eab308;
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        .btn-outline-gold:hover {
-            background: rgba(234, 179, 8, 0.1);
-            box-shadow: 0 0 30px rgba(234, 179, 8, 0.1);
-        }
-
         /* ===== INPUTS ===== */
         .input-blood {
             background: rgba(0, 0, 0, 0.3);
@@ -359,81 +220,15 @@
         .input-blood::placeholder {
             color: rgba(255, 255, 255, 0.2);
         }
-
-        /* ===== CARDS ===== */
-        .card-blood {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-        .card-blood:hover {
-            border-color: rgba(220, 38, 38, 0.3);
-            box-shadow: 0 8px 40px rgba(220, 38, 38, 0.08);
-        }
-
-        /* ===== API KEY DISPLAY ===== */
-        .api-key-display {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(234, 179, 8, 0.2);
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-family: 'Courier New', monospace;
-            color: #eab308;
-            letter-spacing: 1px;
-            font-size: 14px;
-            word-break: break-all;
-        }
-
-        /* ===== EXP BAR RGB ===== */
-        .rgb-exp-bar {
-            background: linear-gradient(90deg, #ff007f, #7928ca, #00dfd8, #0070f3, #10b981, #ff007f);
-            background-size: 300% 100%;
-            animation: rgb-flow 4s linear infinite;
-        }
-        @keyframes rgb-flow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        /* ===== CUSTOM SCROLLBAR UTILITY ===== */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(124, 58, 237, 0.4);
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(124, 58, 237, 0.7);
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 640px) {
-            .card-blood {
-                border-radius: 16px;
-            }
-            .btn-blood, .btn-gold, .btn-outline-blood, .btn-outline-gold {
-                padding: 8px 16px;
-                font-size: 13px;
-            }
-            .glass-panel {
-                border-radius: 20px;
-            }
-        }
     </style>
     
+    <!-- LOAD SUPABASE DAN CONFIG -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
 </head>
 <body>
     <!-- NAVBAR -->
-    <nav class="nav-glass fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
             <a href="home.html" class="text-xl font-black flex items-center gap-2">
                 <span class="text-blood-500">Kyuu</span>
@@ -466,8 +261,10 @@
             <p class="text-gray-400 mt-2">Base URL: <span class="text-gold-400 font-mono text-sm bg-black/30 px-3 py-1 rounded-lg">https://kyuuapi.eu.cc/api/v1</span></p>
         </div>
 
+        <!-- AREA KHUSUS OWNER AKAN DI-RENDER DI SINI SECARA OTOMATIS OLEH JS -->
+
         <!-- Search & Filter -->
-        <div class="glass rounded-2xl p-4 mb-6 flex flex-col sm:flex-row gap-3">
+        <div class="glass rounded-2xl p-4 mb-6 flex flex-col sm:flex-row gap-3 filter-section">
             <div class="flex-1 relative">
                 <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
                 <input type="text" id="search-endpoint" placeholder="Cari endpoint..." class="input-blood pl-10">
@@ -492,22 +289,22 @@
 
         <!-- API Key Input for Testing -->
         <div class="glass rounded-2xl p-4 mb-6 flex flex-col sm:flex-row items-center gap-3">
-            <span class="text-sm font-bold text-gray-400 whitespace-nowrap"><i class="fa-solid fa-key text-gold-400 mr-2"></i>API Key:</span>
-            <input type="text" id="test-api-key" placeholder="Masukkan API Key untuk testing" class="input-blood flex-1 text-sm">
-            <button onclick="setTestApiKey()" class="btn-gold text-sm px-4 py-2">Set Key</button>
+            <span class="text-sm font-bold text-gray-400 whitespace-nowrap"><i class="fa-solid fa-key text-gold-400 mr-2"></i>API Key Anda:</span>
+            <input type="text" id="test-api-key" placeholder="API Key akan terisi otomatis jika Anda login" class="input-blood flex-1 text-sm bg-black/50" readonly>
         </div>
 
         <!-- Endpoints List -->
         <div id="endpoints-container" class="space-y-4">
-            <!-- Endpoint cards will be rendered by JS -->
             <div class="text-center py-12 text-gray-500">
                 <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
-                <p class="mt-2">Memuat endpoint...</p>
+                <p class="mt-2">Memuat endpoint dari database...</p>
             </div>
         </div>
     </main>
 
-    <!-- Test Console Modal -->
+    <!-- ============================================== -->
+    <!-- MODAL TEST ENDPOINT -->
+    <!-- ============================================== -->
     <div id="test-modal" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[100] hidden backdrop-blur-md px-4">
         <div class="glass rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 border border-blood-500/20">
             <div class="flex items-center justify-between mb-4">
@@ -518,18 +315,15 @@
                 <button onclick="closeTestModal()" class="text-gray-500 hover:text-white text-xl">&times;</button>
             </div>
             
-            <!-- Parameters -->
             <div id="test-params" class="mb-4"></div>
             
-            <!-- Response -->
             <div class="mb-4">
-                <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Response</label>
+                <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Mock Response (Contoh)</label>
                 <div id="test-response" class="bg-black/50 rounded-xl p-4 mt-1 font-mono text-sm text-emerald-400 min-h-[100px] overflow-auto whitespace-pre-wrap border border-white/5">
-                    <span class="text-gray-500">Klik "Test" untuk menjalankan...</span>
+                    <span class="text-gray-500">Memuat...</span>
                 </div>
             </div>
             
-            <!-- Code Snippets -->
             <div class="mb-4">
                 <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Code Examples</label>
                 <div class="flex gap-2 mt-2 flex-wrap">
@@ -538,230 +332,160 @@
                     <button onclick="showCode('python')" class="text-xs px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition font-bold text-gray-300">Python</button>
                     <button onclick="showCode('php')" class="text-xs px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition font-bold text-gray-300">PHP</button>
                 </div>
-                <div id="code-display" class="bg-black/50 rounded-xl p-4 mt-2 font-mono text-xs text-gray-300 overflow-auto max-h-48 border border-white/5">
-                    <span class="text-gray-500">Pilih bahasa untuk melihat contoh</span>
+                <div id="code-display" class="bg-black/50 rounded-xl p-4 mt-2 font-mono text-xs text-gray-300 overflow-auto max-h-48 border border-white/5 whitespace-pre-wrap">
+                    <span class="text-gray-500">Pilih bahasa untuk melihat contoh kode lengkap dengan API Key Anda</span>
                 </div>
             </div>
             
-            <!-- Actions -->
             <div class="flex gap-3">
-                <button onclick="executeTest()" class="btn-gold flex-1 text-sm py-3">
-                    <i class="fa-solid fa-play mr-2"></i> Test
-                </button>
-                <button onclick="closeTestModal()" class="btn-outline-blood text-sm px-6">Tutup</button>
+                <button onclick="closeTestModal()" class="btn-outline-blood w-full text-sm px-6 py-3">Tutup Jendela Test</button>
             </div>
         </div>
     </div>
 
+    <!-- ============================================== -->
+    <!-- MODAL TAMBAH ENDPOINT (KHUSUS OWNER) -->
+    <!-- ============================================== -->
+    <div id="add-endpoint-modal" class="fixed inset-0 bg-black/90 flex items-center justify-center z-[100] hidden backdrop-blur-md px-4">
+        <div class="glass rounded-3xl w-full max-w-lg p-6 border border-gold-500/30">
+            <h3 class="text-lg font-black text-gold-400 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-plus-circle"></i> Tambah Endpoint Baru
+            </h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[11px] text-gray-400 uppercase font-bold tracking-wider">Nama Endpoint</label>
+                    <input type="text" id="new-ep-name" placeholder="Contoh: Get Anime Search" class="input-blood mt-1 w-full text-sm">
+                </div>
+                <div>
+                    <label class="text-[11px] text-gray-400 uppercase font-bold tracking-wider">Path (URL)</label>
+                    <input type="text" id="new-ep-path" placeholder="Contoh: /anime/search" class="input-blood mt-1 w-full text-sm font-mono">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[11px] text-gray-400 uppercase font-bold tracking-wider">Method</label>
+                        <select id="new-ep-method" class="input-blood mt-1 w-full bg-black/50 text-sm">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-gray-400 uppercase font-bold tracking-wider">Kategori</label>
+                        <select id="new-ep-category" class="input-blood mt-1 w-full bg-black/50 text-sm">
+                            <option value="anime">Anime</option>
+                            <option value="manga">Manga</option>
+                            <option value="fun">Fun</option>
+                            <option value="utility">Utility</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[11px] text-gray-400 uppercase font-bold tracking-wider">Deskripsi</label>
+                    <textarea id="new-ep-desc" class="input-blood mt-1 w-full h-20 text-sm" placeholder="Jelaskan fungsi endpoint ini..."></textarea>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeAddEndpointModal()" class="w-1/2 py-3 bg-white/5 hover:bg-white/10 text-gray-300 font-bold rounded-xl transition text-sm">Batal</button>
+                <button onclick="saveNewEndpoint()" id="btn-save-ep" class="w-1/2 py-3 bg-gold-600 hover:bg-gold-500 text-white font-bold rounded-xl transition text-sm">Simpan Data</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- LOGIKA JAVASCRIPT UTAMA -->
+    <!-- ============================================== -->
     <script>
         let endpoints = [];
         let currentEndpoint = null;
-        let testApiKey = '';
+        let testApiKey = 'YOUR_API_KEY';
+        let currentUserRole = 'member';
+        let sbClient = null;
 
-        const ENDPOINTS_DATA = [
-            {
-                id: 'anime',
-                name: 'Get Anime List',
-                path: '/anime',
-                method: 'GET',
-                category: 'anime',
-                description: 'Mendapatkan daftar anime terbaru dengan pagination',
-                params: [
-                    { name: 'page', type: 'number', default: '1', description: 'Halaman' },
-                    { name: 'limit', type: 'number', default: '10', description: 'Jumlah per halaman (max 50)' }
-                ],
-                response: `{
-  "status": "success",
-  "data": [
-    {
-      "id": 1,
-      "title": "Attack on Titan",
-      "episodes": 87,
-      "status": "Completed",
-      "score": 8.5
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "limit": 10,
-    "total": 100
-  }
-}`,
-                mock: {
-                    "status": "success",
-                    "data": [
-                        { "id": 1, "title": "Attack on Titan", "episodes": 87, "status": "Completed", "score": 8.5 },
-                        { "id": 2, "title": "Jujutsu Kaisen", "episodes": 24, "status": "Ongoing", "score": 8.2 },
-                        { "id": 3, "title": "Demon Slayer", "episodes": 26, "status": "Completed", "score": 8.6 }
-                    ],
-                    "pagination": { "page": 1, "limit": 10, "total": 50 }
-                }
-            },
-            {
-                id: 'anime-search',
-                name: 'Search Anime',
-                path: '/anime/search',
-                method: 'GET',
-                category: 'anime',
-                description: 'Mencari anime berdasarkan judul atau keyword',
-                params: [
-                    { name: 'q', type: 'string', default: '', description: 'Keyword pencarian (wajib)' },
-                    { name: 'type', type: 'string', default: 'all', description: 'Tipe: all, tv, movie, ova' }
-                ],
-                response: `{
-  "status": "success",
-  "query": "naruto",
-  "data": [
-    {
-      "id": 5,
-      "title": "Naruto Shippuden",
-      "episodes": 500,
-      "score": 8.3
-    }
-  ]
-}`,
-                mock: {
-                    "status": "success",
-                    "query": "naruto",
-                    "data": [
-                        { "id": 5, "title": "Naruto Shippuden", "episodes": 500, "score": 8.3 },
-                        { "id": 6, "title": "Boruto: Naruto Next Generations", "episodes": 293, "score": 6.9 }
-                    ]
-                }
-            },
-            {
-                id: 'manga',
-                name: 'Get Manga List',
-                path: '/manga',
-                method: 'GET',
-                category: 'manga',
-                description: 'Mendapatkan daftar manga populer',
-                params: [
-                    { name: 'page', type: 'number', default: '1', description: 'Halaman' },
-                    { name: 'limit', type: 'number', default: '10', description: 'Jumlah per halaman' }
-                ],
-                response: `{
-  "status": "success",
-  "data": [
-    {
-      "id": 1,
-      "title": "One Piece",
-      "chapters": 1090,
-      "status": "Ongoing",
-      "score": 8.9
-    }
-  ]
-}`,
-                mock: {
-                    "status": "success",
-                    "data": [
-                        { "id": 1, "title": "One Piece", "chapters": 1090, "status": "Ongoing", "score": 8.9 },
-                        { "id": 2, "title": "Berserk", "chapters": 373, "status": "Ongoing", "score": 9.2 },
-                        { "id": 3, "title": "Vagabond", "chapters": 327, "status": "Hiatus", "score": 9.0 }
-                    ]
-                }
-            },
-            {
-                id: 'quote',
-                name: 'Random Anime Quote',
-                path: '/quote',
-                method: 'GET',
-                category: 'fun',
-                description: 'Mendapatkan quote acak dari anime populer',
-                params: [
-                    { name: 'anime', type: 'string', default: 'random', description: 'Judul anime (opsional)' }
-                ],
-                response: `{
-  "status": "success",
-  "quote": "The only way to truly escape the mundane is to constantly be in a state of transformation.",
-  "character": "Kakashi Hatake",
-  "anime": "Naruto"
-}`,
-                mock: {
-                    "status": "success",
-                    "quote": "The only way to truly escape the mundane is to constantly be in a state of transformation.",
-                    "character": "Kakashi Hatake",
-                    "anime": "Naruto"
-                }
-            },
-            {
-                id: 'waifu',
-                name: 'Random Waifu Image',
-                path: '/waifu',
-                method: 'GET',
-                category: 'fun',
-                description: 'Mendapatkan gambar waifu random (SFW)',
-                params: [
-                    { name: 'category', type: 'string', default: 'random', description: 'Kategori: neko, maid, waifu, etc' }
-                ],
-                response: `{
-  "status": "success",
-  "url": "https://example.com/waifu/image.jpg",
-  "category": "waifu"
-}`,
-                mock: {
-                    "status": "success",
-                    "url": "https://example.com/waifu/image.jpg",
-                    "category": "waifu"
-                }
-            },
-            {
-                id: 'translate',
-                name: 'Translate Text',
-                path: '/translate',
-                method: 'POST',
-                category: 'utility',
-                description: 'Menerjemahkan teks ke bahasa lain (AI powered)',
-                params: [
-                    { name: 'text', type: 'string', default: '', description: 'Teks yang akan diterjemahkan (wajib)' },
-                    { name: 'target_lang', type: 'string', default: 'en', description: 'Bahasa tujuan: en, id, ja, ko' }
-                ],
-                response: `{
-  "status": "success",
-  "original": "Halo dunia",
-  "translated": "Hello world",
-  "target_lang": "en"
-}`,
-                mock: {
-                    "status": "success",
-                    "original": "Halo dunia",
-                    "translated": "Hello world",
-                    "target_lang": "en"
-                }
-            },
-            {
-                id: 'joke',
-                name: 'Random Joke',
-                path: '/joke',
-                method: 'GET',
-                category: 'fun',
-                description: 'Mendapatkan lelucon random (terkadang anime related)',
-                params: [],
-                response: `{
-  "status": "success",
-  "joke": "Why did the anime character cross the road? To get to the other side of the screen!"
-}`,
-                mock: {
-                    "status": "success",
-                    "joke": "Why did the anime character cross the road? To get to the other side of the screen!"
+        const BASE_URL = 'https://kyuuapi.eu.cc/api/v1';
+
+        async function initDocs() {
+            // Setup Supabase
+            if (typeof window.supabaseClient !== 'undefined') {
+                sbClient = window.supabaseClient;
+            } else if (typeof window.supabase !== 'undefined' && typeof window.CONFIG !== 'undefined') {
+                sbClient = window.supabase.createClient(window.CONFIG.SUPABASE_URL, window.CONFIG.SUPABASE_ANON_KEY);
+            }
+
+            if (!sbClient) {
+                document.getElementById('endpoints-container').innerHTML = '<div class="text-center text-red-500 py-10">Gagal terhubung ke Supabase. Cek file config.js Anda!</div>';
+                return;
+            }
+
+            // Cek Sesi User & Role
+            const { data: { session } } = await sbClient.auth.getSession();
+            if (session) {
+                const { data: profile } = await sbClient.from('profiles').select('role, api_key').eq('id', session.user.id).single();
+                if (profile) {
+                    currentUserRole = profile.role || 'member';
+                    if (profile.api_key) testApiKey = profile.api_key;
+                    document.getElementById('test-api-key').value = testApiKey;
                 }
             }
-        ];
 
-        function renderEndpoints(filtered) {
+            // Render Tampilan Owner (Jika user adalah Owner)
+            renderAdminControls();
+
+            // Load Endpoints dari Database Supabase
+            await fetchEndpointsFromDB();
+        }
+
+        async function fetchEndpointsFromDB() {
+            const container = document.getElementById('endpoints-container');
+            container.innerHTML = '<div class="text-center py-12 text-gray-500"><i class="fa-solid fa-spinner fa-spin text-2xl"></i><p class="mt-2">Mengambil data dari database...</p></div>';
+
+            const { data, error } = await sbClient.from('endpoints').select('*').order('created_at', { ascending: true });
+
+            if (error) {
+                container.innerHTML = `<div class="text-center text-red-500 py-10">Error memuat data: ${error.message}</div>`;
+                return;
+            }
+
+            endpoints = data || [];
+            renderEndpoints(endpoints);
+        }
+
+        function renderAdminControls() {
+            if (currentUserRole !== 'owner') return;
+
+            const adminDiv = document.createElement('div');
+            adminDiv.className = "glass rounded-2xl p-4 mb-6 border-2 border-gold-500/30 bg-gold-500/5";
+            adminDiv.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-black text-gold-400 uppercase tracking-widest"><i class="fa-solid fa-crown mr-2"></i>Admin Panel Mode</h3>
+                    <button onclick="openAddEndpointModal()" class="btn-gold text-xs px-4 py-2">
+                        <i class="fa-solid fa-plus mr-1"></i> Tambah Endpoint
+                    </button>
+                </div>
+                <p class="text-xs text-gray-400 mt-1">Anda login sebagai Owner. Anda berhak menambah dan menghapus data Endpoint.</p>
+            `;
+            
+            const filterSection = document.querySelector('.filter-section');
+            if(filterSection) filterSection.parentNode.insertBefore(adminDiv, filterSection);
+        }
+
+        function renderEndpoints(filteredList) {
             const container = document.getElementById('endpoints-container');
             
-            if (filtered.length === 0) {
+            if (filteredList.length === 0) {
                 container.innerHTML = `
                     <div class="glass rounded-2xl p-8 text-center">
-                        <i class="fa-solid fa-search text-2xl text-gray-500"></i>
-                        <p class="text-gray-400 mt-2">Tidak ada endpoint yang ditemukan</p>
+                        <i class="fa-solid fa-server text-2xl text-gray-500"></i>
+                        <p class="text-gray-400 mt-2">Tidak ada endpoint yang ditemukan.</p>
                     </div>
                 `;
                 return;
             }
             
-            container.innerHTML = filtered.map(ep => {
+            container.innerHTML = filteredList.map(ep => {
                 const methodColors = {
                     'GET': 'text-emerald-400 bg-emerald-400/10',
                     'POST': 'text-blue-400 bg-blue-400/10',
@@ -769,35 +493,107 @@
                     'DELETE': 'text-red-400 bg-red-400/10'
                 };
                 
+                const deleteBtn = currentUserRole === 'owner' ? `
+                    <button onclick="deleteEndpoint('${ep.id}')" title="Hapus Endpoint Ini" class="bg-red-500/20 hover:bg-red-500/40 text-red-400 text-xs px-3 py-1.5 rounded-lg font-bold transition ml-2">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                ` : '';
+                
                 return `
-                <div class="glass rounded-2xl p-5 hover:border-blood-500/20 transition border border-transparent" data-id="${ep.id}">
+                <div class="glass rounded-2xl p-5 hover:border-blood-500/20 transition border border-transparent">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div class="flex items-center gap-3 flex-wrap">
                             <span class="text-[10px] font-black px-2.5 py-0.5 rounded ${methodColors[ep.method] || 'text-gray-400 bg-gray-400/10'}">${ep.method}</span>
                             <span class="font-mono text-sm text-gold-400">${ep.path}</span>
                             <span class="text-xs text-gray-500 hidden sm:inline">•</span>
-                            <span class="text-xs text-gray-400">${ep.category}</span>
+                            <span class="text-xs text-gray-400 uppercase font-bold">${ep.category}</span>
                         </div>
                         <div class="flex gap-2">
                             <button onclick="testEndpoint('${ep.id}')" class="btn-gold text-xs px-4 py-1.5">
-                                <i class="fa-solid fa-play"></i> Test
+                                <i class="fa-solid fa-code"></i> Lihat Docs
                             </button>
-                            <button onclick="copyEndpoint('${ep.id}')" class="btn-outline-blood text-xs px-3 py-1.5">
+                            <button onclick="copyEndpointUrl('${ep.path}')" class="btn-outline-blood text-xs px-3 py-1.5">
                                 <i class="fa-regular fa-copy"></i>
                             </button>
+                            ${deleteBtn}
                         </div>
                     </div>
-                    <p class="text-sm text-gray-400 mt-2">${ep.description}</p>
-                    <div class="flex flex-wrap gap-2 mt-2">
-                        ${ep.params.map(p => `
-                            <span class="text-[10px] bg-white/5 px-2 py-0.5 rounded-full text-gray-500">
-                                ${p.name}: <span class="text-gray-300">${p.default || '?'}</span>
-                            </span>
-                        `).join('')}
-                    </div>
+                    <p class="text-sm text-gray-400 mt-2">${ep.description || 'Tidak ada deskripsi'}</p>
                 </div>
             `}).join('');
         }
+
+        // ==========================================
+        // FUNGSI ADMIN (TAMBAH & HAPUS)
+        // ==========================================
+        
+        function openAddEndpointModal() {
+            document.getElementById('new-ep-name').value = '';
+            document.getElementById('new-ep-path').value = '';
+            document.getElementById('new-ep-desc').value = '';
+            document.getElementById('add-endpoint-modal').classList.remove('hidden');
+        }
+
+        function closeAddEndpointModal() {
+            document.getElementById('add-endpoint-modal').classList.add('hidden');
+        }
+
+        async function saveNewEndpoint() {
+            const btn = document.getElementById('btn-save-ep');
+            const name = document.getElementById('new-ep-name').value.trim();
+            const path = document.getElementById('new-ep-path').value.trim();
+            const method = document.getElementById('new-ep-method').value;
+            const category = document.getElementById('new-ep-category').value;
+            const desc = document.getElementById('new-ep-desc').value.trim();
+
+            if (!name || !path) {
+                alert('Nama dan Path endpoint wajib diisi!');
+                return;
+            }
+
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+
+            const newData = {
+                name: name,
+                path: path,
+                method: method,
+                category: category,
+                description: desc,
+                params: [], // Default array params
+                mock: { status: "success", message: "Ini adalah mock response dari database" }
+            };
+
+            const { error } = await sbClient.from('endpoints').insert([newData]);
+            
+            if (error) {
+                alert("Gagal tambah endpoint: " + error.message);
+            } else {
+                alert("Endpoint berhasil ditambahkan ke database!");
+                closeAddEndpointModal();
+                fetchEndpointsFromDB(); // Reload list
+            }
+
+            btn.innerText = 'Simpan Data';
+            btn.disabled = false;
+        }
+
+        async function deleteEndpoint(id) {
+            if (!confirm("PERINGATAN! Yakin ingin menghapus endpoint ini dari database secara permanen?")) return;
+            
+            const { error } = await sbClient.from('endpoints').delete().eq('id', id);
+            
+            if (error) {
+                alert("Gagal menghapus: " + error.message);
+            } else {
+                fetchEndpointsFromDB();
+            }
+        }
+
+
+        // ==========================================
+        // FUNGSI FILTER & UTILITY 
+        // ==========================================
 
         function filterEndpoints() {
             const search = document.getElementById('search-endpoint').value.toLowerCase();
@@ -806,8 +602,8 @@
             
             const filtered = endpoints.filter(ep => {
                 const matchSearch = ep.path.toLowerCase().includes(search) || 
-                                   ep.name.toLowerCase().includes(search) ||
-                                   ep.description.toLowerCase().includes(search);
+                                   (ep.description && ep.description.toLowerCase().includes(search)) ||
+                                   ep.name.toLowerCase().includes(search);
                 const matchMethod = method === 'all' || ep.method === method;
                 const matchCategory = category === 'all' || ep.category === category;
                 return matchSearch && matchMethod && matchCategory;
@@ -816,44 +612,51 @@
             renderEndpoints(filtered);
         }
 
+        function copyEndpointUrl(path) {
+            const url = BASE_URL + path;
+            navigator.clipboard.writeText(url);
+            alert('URL Endpoint berhasil disalin:\n' + url);
+        }
+
+        // ==========================================
+        // FUNGSI TEST CONSOLE (DOKUMENTASI KODE)
+        // ==========================================
+
         function testEndpoint(id) {
-            const ep = endpoints.find(e => e.id === id);
-            if (!ep) return;
+            currentEndpoint = endpoints.find(e => e.id === id);
+            if (!currentEndpoint) return;
             
-            currentEndpoint = ep;
-            document.getElementById('test-method-badge').innerText = ep.method;
-            document.getElementById('test-method-badge').className = `text-xs px-2 py-0.5 rounded font-bold ${
-                ep.method === 'GET' ? 'text-emerald-400 bg-emerald-400/10' :
-                ep.method === 'POST' ? 'text-blue-400 bg-blue-400/10' :
-                'text-amber-400 bg-amber-400/10'
-            }`;
-            document.getElementById('test-path').innerText = ep.path;
+            document.getElementById('test-method-badge').innerText = currentEndpoint.method;
             
-            // Generate params
+            // Atur warna badge method
+            let badgeClass = 'text-xs px-2 py-0.5 rounded font-bold ';
+            if (currentEndpoint.method === 'GET') badgeClass += 'text-emerald-400 bg-emerald-400/10';
+            else if (currentEndpoint.method === 'POST') badgeClass += 'text-blue-400 bg-blue-400/10';
+            else if (currentEndpoint.method === 'PUT') badgeClass += 'text-amber-400 bg-amber-400/10';
+            else badgeClass += 'text-red-400 bg-red-400/10';
+            
+            document.getElementById('test-method-badge').className = badgeClass;
+            document.getElementById('test-path').innerText = currentEndpoint.path;
+            
+            // Render Parameters info (jika ada)
             const paramsDiv = document.getElementById('test-params');
-            if (ep.params.length > 0) {
+            if (currentEndpoint.params && currentEndpoint.params.length > 0) {
                 paramsDiv.innerHTML = `
-                    <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Parameters</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-                        ${ep.params.map(p => `
-                            <div>
-                                <label class="text-[10px] text-gray-500">${p.name} <span class="text-gray-600">(${p.type})</span></label>
-                                <input type="text" id="param-${p.name}" placeholder="${p.default || ''}" class="input-blood text-sm py-2">
-                            </div>
-                        `).join('')}
-                    </div>
+                    <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Parameters yang diperlukan</label>
+                    <ul class="text-sm text-gray-300 mt-2 list-disc pl-5">
+                        ${currentEndpoint.params.map(p => `<li><span class="text-gold-400 font-mono">${p.name}</span> - ${p.description || 'Tidak ada deskripsi'}</li>`).join('')}
+                    </ul>
                 `;
             } else {
-                paramsDiv.innerHTML = `
-                    <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Parameters</label>
-                    <p class="text-sm text-gray-500 mt-1">Tidak ada parameter yang diperlukan</p>
-                `;
+                paramsDiv.innerHTML = '<p class="text-sm text-gray-500 italic">Endpoint ini tidak memerlukan parameter khusus.</p>';
             }
+
+            // Tampilkan Response Dummy
+            document.getElementById('test-response').innerText = JSON.stringify(currentEndpoint.mock || { info: "No mock data" }, null, 2);
             
-            // Clear response
-            document.getElementById('test-response').innerHTML = '<span class="text-gray-500">Klik "Test" untuk menjalankan...</span>';
-            document.getElementById('code-display').innerHTML = '<span class="text-gray-500">Pilih bahasa untuk melihat contoh</span>';
-            
+            // Reset panel code
+            document.getElementById('code-display').innerText = "Pilih bahasa di atas untuk melihat contoh kode lengkap dengan API Key Anda.";
+
             document.getElementById('test-modal').classList.remove('hidden');
         }
 
@@ -861,50 +664,22 @@
             document.getElementById('test-modal').classList.add('hidden');
         }
 
-        async function executeTest() {
-            const ep = currentEndpoint;
-            if (!ep) return;
-            
-            const responseDiv = document.getElementById('test-response');
-            responseDiv.innerHTML = '<span class="text-gray-500"><i class="fa-solid fa-spinner fa-spin"></i> Menjalankan...</span>';
-            
-            // Build URL with params
-            const params = {};
-            ep.params.forEach(p => {
-                const val = document.getElementById(`param-${p.name}`)?.value || p.default || '';
-                if (val) params[p.name] = val;
-            });
-            
-            const url = new URL(`https://kyuuapi.eu.cc/api/v1${ep.path}`);
-            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-            
-            // Simulate API call with mock
-            setTimeout(() => {
-                const mockData = ep.mock || { status: "success", message: "Mock response" };
-                responseDiv.innerHTML = JSON.stringify(mockData, null, 2);
-                responseDiv.className = 'bg-black/50 rounded-xl p-4 mt-1 font-mono text-sm text-emerald-400 min-h-[100px] overflow-auto whitespace-pre-wrap border border-white/5';
-            }, 800);
-        }
-
         function showCode(lang) {
             const ep = currentEndpoint;
             if (!ep) return;
             
-            const baseUrl = 'https://kyuuapi.eu.cc/api/v1';
-            const apiKey = document.getElementById('test-api-key').value || 'YOUR_API_KEY';
-            
             let code = '';
             switch(lang) {
                 case 'curl':
-                    code = `curl -X ${ep.method} "${baseUrl}${ep.path}" \\
-  -H "Authorization: Bearer ${apiKey}" \\
+                    code = `curl -X ${ep.method} "${BASE_URL}${ep.path}" \\
+  -H "Authorization: Bearer ${testApiKey}" \\
   -H "Content-Type: application/json"`;
                     break;
                 case 'js':
-                    code = `fetch("${baseUrl}${ep.path}", {
+                    code = `fetch("${BASE_URL}${ep.path}", {
   method: "${ep.method}",
   headers: {
-    "Authorization": "Bearer ${apiKey}",
+    "Authorization": "Bearer ${testApiKey}",
     "Content-Type": "application/json"
   }
 })
@@ -915,16 +690,13 @@
                 case 'python':
                     code = `import requests
 
-url = "${baseUrl}${ep.path}"
+url = "${BASE_URL}${ep.path}"
 headers = {
-    "Authorization": "Bearer ${apiKey}",
+    "Authorization": "Bearer ${testApiKey}",
     "Content-Type": "application/json"
 }
 
-response = requests.${ep.method.toLowerCase()}(
-    url, 
-    headers=headers
-)
+response = requests.${ep.method.toLowerCase()}(url, headers=headers)
 print(response.json())`;
                     break;
                 case 'php':
@@ -932,11 +704,11 @@ print(response.json())`;
 $curl = curl_init();
 
 curl_setopt_array($curl, [
-    CURLOPT_URL => "${baseUrl}${ep.path}",
+    CURLOPT_URL => "${BASE_URL}${ep.path}",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_CUSTOMREQUEST => "${ep.method}",
     CURLOPT_HTTPHEADER => [
-        "Authorization: Bearer ${apiKey}",
+        "Authorization: Bearer ${testApiKey}",
         "Content-Type: application/json"
     ]
 ]);
@@ -951,38 +723,18 @@ print_r($data);
             document.getElementById('code-display').innerText = code;
         }
 
-        function copyEndpoint(id) {
-            const ep = endpoints.find(e => e.id === id);
-            if (ep) {
-                const url = `https://kyuuapi.eu.cc/api/v1${ep.path}`;
-                navigator.clipboard.writeText(url);
-                alert('Endpoint URL berhasil disalin!');
-            }
-        }
-
-        function setTestApiKey() {
-            const key = document.getElementById('test-api-key').value;
-            if (key) {
-                testApiKey = key;
-                alert('API Key berhasil dipasang untuk testing!');
-            }
-        }
-
         async function logout() {
-            if (typeof supabaseClient !== 'undefined') {
-                await supabaseClient.auth.signOut();
-            } else if (typeof supabase !== 'undefined') {
-                await supabase.auth.signOut();
-            }
+            if (sbClient) await sbClient.auth.signOut();
             window.location.href = 'auth.html';
         }
 
-        // Initialize ketika HTML selesai dimuat
+        // ==========================================
+        // INIT PADA SAAT PAGE LOAD
+        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
-            endpoints = ENDPOINTS_DATA;
-            renderEndpoints(endpoints);
+            initDocs();
             
-            // Filter Events
+            // Event listener buat kolom pencarian
             document.getElementById('search-endpoint').addEventListener('input', filterEndpoints);
             document.getElementById('filter-method').addEventListener('change', filterEndpoints);
             document.getElementById('filter-category').addEventListener('change', filterEndpoints);
