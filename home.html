@@ -404,32 +404,23 @@
 
     <script>
         // ==============================
-        // DASHBOARD LOGIC
+        // DASHBOARD LOGIC FIXED
         // ==============================
 
         let currentUser = null;
         let currentProfile = null;
-        let supabase = null;
-
-        // Inisialisasi Supabase
-        try {
-            if (typeof CONFIG !== 'undefined' && CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY) {
-                supabase = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
-                console.log('✅ Supabase initialized');
-            } else {
-                console.error('❌ CONFIG not found');
-            }
-        } catch (err) {
-            console.error('❌ Supabase init error:', err);
-        }
+        // HAPUS "let supabase = null;" KARENA BIKIN CRASH!
 
         async function loadDashboard() {
-            if (!supabase) {
-                alert('❌ Supabase tidak tersedia. Refresh halaman.');
+            // Gunakan global client dari config.js
+            const sbClient = window.supabaseClient;
+
+            if (!sbClient) {
+                alert('❌ Supabase tidak tersedia. Cek koneksi internet atau config.js.');
                 return;
             }
 
-            const { data: { session }, error } = await supabase.auth.getSession();
+            const { data: { session }, error } = await sbClient.auth.getSession();
             if (error || !session) {
                 window.location.href = 'auth.html';
                 return;
@@ -437,7 +428,7 @@
             
             currentUser = session.user;
             
-            const { data: profile } = await supabase
+            const { data: profile, error: profileErr } = await sbClient
                 .from('profiles')
                 .select('*')
                 .eq('id', currentUser.id)
@@ -448,7 +439,7 @@
                 
                 document.getElementById('welcome-name').innerText = profile.full_name || 'User';
                 document.getElementById('nav-name').innerText = profile.full_name || 'User';
-                document.getElementById('nav-avatar').src = profile.avatar_url || 'https://via.placeholder.com/32';
+                document.getElementById('nav-avatar').src = profile.avatar_url || 'https://via.placeholder.com/150';
                 
                 // Role
                 const roleEl = document.getElementById('welcome-role');
@@ -488,6 +479,8 @@
                 // Status
                 document.getElementById('stat-status').innerHTML = '● Aktif';
                 document.getElementById('stat-status').className = 'text-xl font-black text-emerald-400 mt-1';
+            } else if (profileErr) {
+                console.error("Gagal load profile dari database:", profileErr);
             }
             
             loadActivity();
@@ -495,13 +488,9 @@
 
         function loadActivity() {
             const list = document.getElementById('activity-list');
-            
             const activities = [
-                { time: '2 menit lalu', action: 'GET /anime', status: '200' },
-                { time: '15 menit lalu', action: 'GET /waifu', status: '200' },
-                { time: '1 jam lalu', action: 'GET /quote', status: '200' },
-                { time: '3 jam lalu', action: 'GET /manga', status: '404' },
-                { time: '5 jam lalu', action: 'GET /anime', status: '200' },
+                { time: 'Berapa detik lalu', action: 'Login berhasil', status: '200' },
+                { time: 'Sistem', action: 'Memuat Dashboard', status: '200' }
             ];
             
             list.innerHTML = activities.map(a => `
@@ -526,8 +515,8 @@
         }
 
         async function logout() {
-            if (supabase) {
-                await supabase.auth.signOut();
+            if (window.supabaseClient) {
+                await window.supabaseClient.auth.signOut();
             }
             window.location.href = 'auth.html';
         }

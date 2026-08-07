@@ -26,8 +26,12 @@ window.CONFIG = {
     }
 };
 
-// Initialize Supabase client
-const supabaseClient = supabase.createClient(
-    CONFIG.SUPABASE_URL,
-    CONFIG.SUPABASE_ANON_KEY
-);
+// Inisialisasi secara Global agar aman dari error "undefined"
+if (typeof window.supabase !== 'undefined') {
+    window.supabaseClient = window.supabase.createClient(
+        window.CONFIG.SUPABASE_URL,
+        window.CONFIG.SUPABASE_ANON_KEY
+    );
+} else {
+    console.error("❌ CDN Supabase belum ter-load!");
+}
