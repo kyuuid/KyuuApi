@@ -59,7 +59,7 @@ body {
     background-attachment: fixed;
     transition: background 0.5s ease;
     position: relative;
-    overflow-x: hidden; /* Mencegah layar geser kanan di HP */
+    overflow-x: hidden;
 }
 
 /* ===== BACKGROUND NEON BLOBS ===== */
@@ -313,7 +313,7 @@ body {
     </main>
 
     <!-- ============================================== -->
-    <!-- MODAL TEST ENDPOINT (DENGAN TOMBOL COPY) -->
+    <!-- MODAL TEST ENDPOINT (DENGAN TOMBOL COPY & FORM DINAMIS) -->
     <!-- ============================================== -->
     <div id="test-modal" class="fixed inset-0 bg-black/95 flex items-center justify-center z-[100] hidden backdrop-blur-xl p-3 sm:p-4 transition-opacity">
         <div class="glass modal-content rounded-2xl sm:rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-4 sm:p-8 bg-[#0a0a0f]/95 border border-blood-500/30 relative flex flex-col">
@@ -330,7 +330,7 @@ body {
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 flex-1 overflow-y-auto pr-1">
-                <!-- Kolom Kiri: Info & Params -->
+                <!-- Kolom Kiri: Info & Params (FORM) -->
                 <div class="flex flex-col gap-4 sm:gap-6">
                     <div>
                         <label class="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-2">
@@ -346,7 +346,7 @@ body {
                 <div class="flex flex-col">
                     <div class="flex justify-between items-center mb-2">
                         <label class="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                            <i class="fa-solid fa-code text-emerald-400"></i> Mock Response
+                            <i class="fa-solid fa-code text-emerald-400"></i> API Response
                         </label>
                         <button onclick="copyTestResponse()" class="text-[9px] sm:text-[10px] font-bold bg-white/5 hover:bg-emerald-500/20 text-gray-300 hover:text-emerald-400 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg transition border border-white/10 flex items-center gap-1 sm:gap-2">
                             <i class="fa-regular fa-copy"></i> Copy JSON
@@ -568,7 +568,7 @@ body {
         // ==========================================
         function copyTestResponse() {
             const text = document.getElementById('test-response').innerText;
-            if(text && text !== 'Memuat...') {
+            if(text && text !== 'Memuat...' && text !== 'Mengirim request...') {
                 navigator.clipboard.writeText(text);
                 alert('JSON Response berhasil disalin!');
             }
@@ -650,7 +650,7 @@ body {
         }
 
         // ==========================================
-        // FILTER & TEST MODAL
+        // FILTER & TEST MODAL (DENGAN FORM DINAMIS)
         // ==========================================
         function filterEndpoints() {
             const search = document.getElementById('search-endpoint').value.toLowerCase();
@@ -685,32 +685,168 @@ body {
             document.getElementById('test-desc').innerText = currentEndpoint.description || 'Tidak ada deskripsi.';
 
             const paramsDiv = document.getElementById('test-params');
+            
+            // LOGIKA FORM DINAMIS DIBANGUN DI SINI
             if (currentEndpoint.params && currentEndpoint.params.length > 0) {
                 paramsDiv.innerHTML = `
-                    <div>
+                    <form id="dynamic-api-form" class="space-y-3" onsubmit="submitApiRequest(event)">
                         <label class="text-[10px] sm:text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 mb-2">
-                            <i class="fa-solid fa-sliders text-gold-400"></i> URL Parameters
+                            <i class="fa-solid fa-sliders text-gold-400"></i> Masukkan Parameter
                         </label>
                         <div class="bg-black/40 p-3 sm:p-4 rounded-xl border border-white/5 shadow-inner">
-                            <ul class="text-xs sm:text-sm text-gray-300 space-y-2">
-                                ${currentEndpoint.params.map(p => `
-                                    <li class="flex items-start gap-2">
-                                        <i class="fa-solid fa-angle-right text-blood-500 mt-1 text-[10px]"></i>
-                                        <div><span class="text-gold-400 font-mono font-bold text-xs">${p.name}</span> <span class="text-gray-500 text-[10px]">(${p.type || 'string'})</span><br><span class="text-[11px] opacity-80">${p.description || 'No specific details.'}</span></div>
-                                    </li>`).join('')}
-                            </ul>
+                            ${currentEndpoint.params.map(p => {
+                                if (p.type === 'file') {
+                                    return \`
+                                    <div class="mb-3">
+                                        <label class="text-xs text-gold-400 font-bold">\${p.name} \${p.required ? '<span class="text-red-500">*</span>' : ''}</label>
+                                        <input type="file" id="param_\${p.name}" name="\${p.name}" \${p.required ? 'required' : ''} class="w-full text-xs text-gray-300 mt-1 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-blood-500 file:text-white hover:file:bg-blood-600">
+                                        <p class="text-[10px] text-gray-500 mt-1">\${p.description}</p>
+                                    </div>\`;
+                                } else {
+                                    return \`
+                                    <div class="mb-3">
+                                        <label class="text-xs text-gold-400 font-bold">\${p.name} \${p.required ? '<span class="text-red-500">*</span>' : ''}</label>
+                                        <input type="text" id="param_\${p.name}" name="\${p.name}" placeholder="\${p.description}" \${p.required ? 'required' : ''} class="input-blood w-full mt-1 text-xs py-1.5">
+                                    </div>\`;
+                                }
+                            }).join('')}
+                            
+                            <button type="submit" id="btn-submit-request" class="btn-gold w-full mt-2 text-xs py-2 shadow-lg">
+                                <i class="fa-solid fa-paper-plane"></i> Kirim Request
+                            </button>
                         </div>
-                    </div>
+                    </form>
                 `;
             } else {
-                paramsDiv.innerHTML = '';
+                paramsDiv.innerHTML = `
+                    <div class="text-center py-4 bg-black/40 rounded-xl border border-white/5">
+                        <p class="text-xs text-gray-500 italic">Endpoint ini tidak memerlukan parameter.</p>
+                        <button onclick="submitApiRequest(event)" id="btn-submit-request" class="btn-gold mt-3 text-xs py-2 shadow-lg px-4">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Request
+                        </button>
+                    </div>
+                `;
             }
 
-            // JSON format: 4 spaces indent
-            document.getElementById('test-response').innerText = JSON.stringify(currentEndpoint.mock || { status: "success" }, null, 4);
+            // Tampilkan MOCK Response sementara (bisa dihapus jika mau kosong dulu)
+            document.getElementById('test-response').innerText = JSON.stringify(currentEndpoint.mock?.success || currentEndpoint.mock || { status: "success" }, null, 4);
             document.getElementById('code-display').innerHTML = '<span class="text-gray-500 italic text-[11px] sm:text-xs">Pilih bahasa pemrograman di atas untuk melihat Script API lengkap.</span>';
 
             document.getElementById('test-modal').classList.remove('hidden');
+        }
+
+        // FUNGSI UNTUK MENANGKAP FORM DAN SIMULASI/KIRIM API BENERAN
+        async function submitApiRequest(event) {
+            if(event) event.preventDefault();
+            
+            const btn = document.getElementById('btn-submit-request');
+            if(btn) {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
+                btn.disabled = true;
+            }
+
+            const responseBox = document.getElementById('test-response');
+            responseBox.innerText = "Mengirim request...";
+
+            try {
+                let url = BASE_URL + currentEndpoint.path;
+                const options = {
+                    method: currentEndpoint.method,
+                    headers: {
+                        "Authorization": "Bearer " + testApiKey
+                    }
+                };
+
+                // Kumpulkan data dari form jika ada params
+                if (currentEndpoint.params && currentEndpoint.params.length > 0) {
+                    const formData = new FormData();
+                    const jsonBody = {};
+                    const queryParams = new URLSearchParams();
+                    
+                    let hasFormData = false;
+                    let hasBody = false;
+
+                    currentEndpoint.params.forEach(p => {
+                        const inputElement = document.getElementById('param_' + p.name);
+                        if(!inputElement) return;
+
+                        let value;
+                        if (p.type === 'file') {
+                            value = inputElement.files[0];
+                        } else {
+                            value = inputElement.value;
+                        }
+
+                        if (value) {
+                            if (p.in === 'query') {
+                                queryParams.append(p.name, value);
+                            } else if (p.in === 'formData') {
+                                formData.append(p.name, value);
+                                hasFormData = true;
+                            } else if (p.in === 'body') {
+                                jsonBody[p.name] = value;
+                                hasBody = true;
+                            }
+                        }
+                    });
+
+                    // Set data ke options berdasarkan Method
+                    if (currentEndpoint.method === 'GET' || currentEndpoint.method === 'DELETE') {
+                        if (queryParams.toString()) {
+                            url += '?' + queryParams.toString();
+                        }
+                    } else {
+                        if (hasFormData) {
+                            options.body = formData;
+                            // Jangan set Content-Type untuk formData, biarkan browser yang atur boundary
+                        } else if (hasBody) {
+                            options.headers["Content-Type"] = "application/json";
+                            options.body = JSON.stringify(jsonBody);
+                        }
+                    }
+                }
+
+                // ==========================================
+                // CARA 1: FETCH API REAL (Uncomment kode di bawah jika backend siap)
+                // ==========================================
+                /*
+                const res = await fetch(url, options);
+                const data = await res.json();
+                responseBox.innerText = JSON.stringify(data, null, 4);
+                
+                if(btn) {
+                    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Request';
+                    btn.disabled = false;
+                }
+                return; 
+                */
+
+
+                // ==========================================
+                // CARA 2: SIMULASI RESPONSE (Menggunakan MOCK dari Database)
+                // Hapus blok setTimeout ini jika pakai Fetch Real di atas
+                // ==========================================
+                setTimeout(() => {
+                    let responseData = currentEndpoint.mock?.success || currentEndpoint.mock || { status: "success", message: "Simulasi berhasil (Backend belum dihubungkan)." };
+                    
+                    // Kalau butuh error test
+                    // let responseData = currentEndpoint.mock?.error || { status: "error" };
+                    
+                    responseBox.innerText = JSON.stringify(responseData, null, 4);
+                    
+                    if(btn) {
+                        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Request';
+                        btn.disabled = false;
+                    }
+                }, 1200); // Simulasi delay internet 1.2 detik
+
+            } catch (error) {
+                responseBox.innerText = JSON.stringify({ error: true, message: error.message }, null, 4);
+                if(btn) {
+                    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Request';
+                    btn.disabled = false;
+                }
+            }
         }
 
         function closeTestModal() {
