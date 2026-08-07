@@ -156,183 +156,192 @@
     </div>
 
     <script>
-        let supabase;
-                let currentUser = null;
-        let currentProfile = null;
+    let currentUser = null;
+    let currentProfile = null;
 
-        async function loadProfile() {
-            const sbClient = window.supabaseClient;
-
-            if (!sbClient) {
-                alert("❌ config.js gagal termuat atau Supabase error.");
+    async function loadProfile() {
+        try {
+            // 1. Pastikan Supabase dari config.js terbaca
+            if (typeof supabaseClient === 'undefined') {
+                console.error("Supabase Client tidak ditemukan!");
+                alert("Gagal memuat konfigurasi. Coba refresh halaman!");
                 return;
             }
 
-            try {
-                // Cek Sesi Auth
-                const { data: { session }, error: sessionError } = await sbClient.auth.getSession();
-                
-                if (sessionError || !session) {
-                    window.location.href = 'auth.html';
-                    return;
-                }
-
-                currentUser = session.user;
-
-                // Tarik Data Profil
-                let { data: profile, error: profileError } = await sbClient
-                    .from('profiles')
-                    .select('*')
-                    .eq('id', currentUser.id)
-                    .single();
-
-                // AUTO-FIX Jika data blm terbuat di Database
-                if (profileError && profileError.code === 'PGRST116') {
-                    const { data: newProfile, error: insertError } = await sbClient
-                        .from('profiles')
-                        .insert([{
-                            id: currentUser.id,
-                            full_name: currentUser.user_metadata?.full_name || 'Member Baru',
-                            user_id: currentUser.user_metadata?.username || 'user',
-                            role: 'member',
-                            plan: 'free',
-                            requests_today: 0
-                        }])
-                        .select()
-                        .single();
-                        
-                    if (insertError) throw insertError;
-                    profile = newProfile;
-                } else if (profileError) {
-                    throw profileError; 
-                }
-                
-                currentProfile = profile;
-                renderProfileData(currentProfile);
-
-            } catch (err) {
-                console.error("Gagal memuat profil:", err);
-                alert("Gagal memuat data dari database:\n" + err.message);
+            // 2. Cek Sesi Login
+            const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+            
+            if (sessionError || !session) {
+                console.warn("Tidak ada sesi aktif, kembali ke login...");
+                window.location.href = 'auth.html';
+                return;
             }
+
+            currentUser = session.user;
+
+            // 3. Tarik Data Profil
+            let { data: profile, error: profileError } = await supabaseClient
+                .from('profiles')
+                .select('*')
+                .eq('id', currentUser.id)
+                .single();
+
+            // 4. Auto-Create Jika Tabel Kosong (PGRST116)
+            if (profileError && profileError.code === 'PGRST116') {
+                console.log("Membuat profil baru otomatis...");
+                const { data: newProfile, error: insertError } = await supabaseClient
+                    .from('profiles')
+                    .insert([{
+                        id: currentUser.id,
+                        full_name: currentUser.user_metadata?.full_name || 'Member Baru',
+                        user_id: currentUser.user_metadata?.username || 'user',
+                        role: 'member',
+                        plan: 'free',
+                        requests_today: 0
+                    }])
+                    .select()
+                    .single();
+                
+                if (insertError) throw insertError;
+                profile = newProfile;
+            } else if (profileError) {
+                throw profileError;
+            }
+
+            // 5. Sukses Load, Render ke UI
+            currentProfile = profile;
+            renderProfileData(currentProfile);
+
+        } catch (err) {
+            console.error("Crash saat load profil:", err);
+            alert("Error database: " + err.message);
+            
+            // FALLBACK UI: Biar tulisan "Memuat..." tetap hilang kalau ada error
+            renderProfileData({
+                full_name: 'Gagal Load',
+                user_id: 'error',
+                role: 'member',
+                plan: 'free',
+                requests_today: 0,
+                api_key: 'Error'
+            });
+        }
+    }
+
+    function renderProfileData(profile) {
+        document.getElementById('profile-name').innerText = profile.full_name || 'Tanpa Nama';
+        document.getElementById('profile-id').innerText = `#${profile.user_id || '000000'}`;
+        
+        // Avatar
+        if (document.getElementById('profile-img')) {
+            document.getElementById('profile-img').src = profile.avatar_url || 'https://via.placeholder.com/150';
         }
 
-        function renderProfileData(profile) {
-            const sbClient = window.supabaseClient;
-            document.getElementById('profile-name').innerText = profile.full_name || 'Tanpa Nama';
-            document.getElementById('profile-id').innerText = `#${profile.user_id || '000000'}`;
-            document.getElementById('profile-img').src = profile.avatar_url || 'https://via.placeholder.com/150';
+        // API Key
+        document.getElementById('api-key-display').innerText = profile.api_key || 'Belum dibuat';
+        
+        // Plan & Requests
+        document.getElementById('stat-plan').innerHTML = profile.plan === 'premium' ? 
+            '<i class="fa-solid fa-star text-gold-400 mr-1"></i> Premium' : 
+            '<i class="fa-solid fa-user text-gray-400 mr-1"></i> Free';
+        
+        document.getElementById('stat-requests').innerText = profile.requests_today || 0;
 
-            // Auto-Generate API Key jika kosong
-            let currentApiKey = profile.api_key;
-            if (!currentApiKey || currentApiKey.trim() === '' || currentApiKey === 'Belum dibuat') {
-                currentApiKey = 'kyuu_' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 6);
-                
-                if (sbClient) {
-                    sbClient.from('profiles').update({ api_key: currentApiKey }).eq('id', currentUser.id).then();
-                }
-            }
-            document.getElementById('api-key-display').innerText = currentApiKey;
-
-            document.getElementById('stat-plan').innerHTML = profile.plan === 'premium' ? 
-                '<i class="fa-solid fa-star text-gold-400 mr-1"></i> Premium' : 
-                '<i class="fa-solid fa-user text-gray-400 mr-1"></i> Free';
-            document.getElementById('stat-requests').innerText = profile.requests_today || 0;
-
-            const bannerEl = document.getElementById('profile-banner');
-            if (profile.banner_url && profile.banner_url.trim() !== "") {
+        // Banner
+        const bannerEl = document.getElementById('profile-banner');
+        if (bannerEl) {
+            if (profile.banner_url && profile.banner_url.trim() !== '') {
                 bannerEl.classList.remove('bg-gradient-to-r', 'from-blood-900/60', 'via-dark-surface', 'to-black');
-                bannerEl.style.backgroundImage = `url('${profile.banner_url.trim()}')`;
+                bannerEl.style.backgroundImage = `url('${profile.banner_url}')`;
             } else {
                 bannerEl.style.backgroundImage = 'none';
                 bannerEl.classList.add('bg-gradient-to-r', 'from-blood-900/60', 'via-dark-surface', 'to-black');
             }
+        }
 
-            const date = new Date(profile.created_at || Date.now());
-            document.getElementById('stat-join').innerText = date.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' });
+        // Join Date
+        const joinDate = profile.created_at ? new Date(profile.created_at) : new Date();
+        document.getElementById('stat-join').innerText = joinDate.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' });
 
-            const roleSpan = document.getElementById('profile-role');
+        // Role
+        const roleSpan = document.getElementById('profile-role');
+        if (roleSpan) {
             if (profile.role === 'owner') {
                 roleSpan.innerHTML = '<i class="fa-solid fa-crown mr-1"></i> Owner';
                 roleSpan.className = 'text-gold-400 font-bold';
+            } else if (profile.role === 'breaker') {
+                roleSpan.innerHTML = '<i class="fa-solid fa-fire mr-1"></i> Breaker';
+                roleSpan.className = 'text-blood-400 font-bold';
+            } else if (profile.role === 'nolep') {
+                roleSpan.innerHTML = '<i class="fa-solid fa-droplet mr-1"></i> Nolep';
+                roleSpan.className = 'text-rose-500 font-bold text-[14px]';
             } else {
                 roleSpan.innerHTML = '<i class="fa-solid fa-user mr-1"></i> Member';
                 roleSpan.className = 'text-blue-400 font-bold';
             }
         }
+    }
 
-        function copyApiKey() {
-            const key = document.getElementById('api-key-display').innerText;
-            if (key && key !== 'Memuat...') {
-                navigator.clipboard.writeText(key);
-                alert('API Key berhasil disalin!');
-            }
+    function copyApiKey() {
+        const key = document.getElementById('api-key-display').innerText;
+        if (key && key !== 'Memuat...' && key !== 'Error' && key !== 'Belum dibuat') {
+            navigator.clipboard.writeText(key);
+            alert('API Key berhasil disalin!');
         }
+    }
 
-        function openEditModal() {
-            document.getElementById('edit-name').value = currentProfile?.full_name || '';
-            document.getElementById('edit-profile-modal').classList.remove('hidden');
-        }
+    function openEditModal() {
+        document.getElementById('edit-name').value = currentProfile?.full_name || '';
+        document.getElementById('edit-profile-modal').classList.remove('hidden');
+    }
 
-        function closeEditModal() {
-            document.getElementById('edit-profile-modal').classList.add('hidden');
-        }
+    function closeEditModal() {
+        document.getElementById('edit-profile-modal').classList.add('hidden');
+    }
 
-        async function uploadImageToSupabase(file, folderName) {
-            const sbClient = window.supabaseClient;
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${currentUser.id}-${Date.now()}.${fileExt}`;
-            const filePath = `${folderName}/${fileName}`;
+    // Fungsi simpan edit profil (versi simpel tanpa upload gambar dulu biar gak crash)
+    async function saveProfileChanges() {
+        if (typeof supabaseClient === 'undefined') return;
+        
+        const btn = document.getElementById('btn-save-profile');
+        btn.innerText = 'Menyimpan...';
+        btn.disabled = true;
 
-            const { error: uploadError } = await sbClient.storage.from('user_content').upload(filePath, file, { upsert: true });
-            if (uploadError) return null;
-            
-            const { data } = sbClient.storage.from('user_content').getPublicUrl(filePath);
-            return data.publicUrl;
-        }
-
-        async function saveProfileChanges() {
-            const btn = document.getElementById('btn-save-profile');
-            const sbClient = window.supabaseClient;
-            btn.innerText = 'Menyimpan...';
-            btn.disabled = true;
-
-            const name = document.getElementById('edit-name').value.trim();
-            const avatarFile = document.getElementById('edit-avatar-file').files[0];
-            const bannerFile = document.getElementById('edit-banner-file').files[0];
-
-            if (!name) {
-                alert('Nama tidak boleh kosong!');
-                btn.innerText = 'Simpan'; btn.disabled = false;
-                return;
-            }
-
-            let updateData = { full_name: name };
-
-            if (avatarFile) {
-                const url = await uploadImageToSupabase(avatarFile, 'avatars');
-                if (url) updateData.avatar_url = url;
-            }
-            if (bannerFile) {
-                const url = await uploadImageToSupabase(bannerFile, 'banners');
-                if (url) updateData.banner_url = url;
-            }
-
-            const { error } = await sbClient.from('profiles').update(updateData).eq('id', currentUser.id);
-
-            if (error) alert('Gagal: ' + error.message);
-            
-            btn.innerText = 'Simpan';
+        const name = document.getElementById('edit-name').value.trim();
+        if (!name) {
+            alert('Nama tidak boleh kosong!');
+            btn.innerText = 'Simpan'; 
             btn.disabled = false;
-            closeEditModal();
-            loadProfile();
+            return;
         }
 
-        async function logout() {
-            if(window.supabaseClient) await window.supabaseClient.auth.signOut();
-            window.location.href = 'auth.html';
-        }
+        const { error } = await supabaseClient
+            .from('profiles')
+            .update({ full_name: name })
+            .eq('id', currentUser.id);
 
-        document.addEventListener('DOMContentLoaded', loadProfile);
-    </script>
+        if (error) {
+            alert('Gagal: ' + error.message);
+        } else {
+            alert('Profil berhasil diupdate!');
+        }
+        
+        btn.innerText = 'Simpan';
+        btn.disabled = false;
+        closeEditModal();
+        loadProfile(); // Reload data
+    }
+
+    async function logout() {
+        if (typeof supabaseClient !== 'undefined') {
+            await supabaseClient.auth.signOut();
+        }
+        window.location.href = 'auth.html';
+    }
+
+    // Jalankan saat halaman siap
+    document.addEventListener('DOMContentLoaded', loadProfile);
+</script>
+
 </body>
 </html>
